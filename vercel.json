@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "buildCommand": "NEXT_DISABLE_ESLINT=1 next build",
+  "routes": [
+    {
+      "src": "/(.*)",
+      "status": 404,
+      "dest": "/404"
+    }
+  ]
+}
