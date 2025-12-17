@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import { getMetaData } from "@/utils/seo/get-metadata";
 import { NextPage } from "next";
 import PartnerClinicSection from "@/components/partner-clinic-section";
@@ -7,6 +8,7 @@ import CopyrightBar from "@/components/copyright-bar";
 import PartnersBannerSection from "@/components/partners-banner-section";
 import { NavBar } from "@/components/shared/navbar";
 import { api } from "@/instances/api";
+import { redirect } from "next/navigation";
 
 export async function generateMetadata() {
   return getMetaData({
@@ -18,13 +20,18 @@ export async function generateMetadata() {
 }
 
 const Page: NextPage = async () => {
-  const citiesData = await api.cities.findAll({});
-
-
-  const partnersData = await api.partners.findAll({});
-
-  const categoriesData = await api.categories.findAll({});
-
+  try {
+    
+    var citiesData = await api.cities.findAll({});
+    var partnersData = await api.partners.findAll({});
+    var categoriesData = await api.categories.findAll({});
+    
+  } catch (error) {
+    console.log("error", error);
+    if(!citiesData){
+      redirect('/404');
+    }
+  }
 
 
   return (

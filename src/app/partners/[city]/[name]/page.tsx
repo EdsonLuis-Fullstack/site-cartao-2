@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import { getMetaData } from "@/utils/seo/get-metadata";
 import { NextPage } from "next";
 import Footer from "@/components/footer";
@@ -5,8 +6,8 @@ import CopyrightBar from "@/components/copyright-bar";
 import PartnerMainSection from "@/components/partner-main-section";
 import PartnerBannerSection from "@/components/partner-banner-section";
 import { NavBar } from "@/components/shared/navbar";
-import { PartnerDynamicPage } from "../types";
 import { api } from "@/instances/api";
+import { PartnerDynamicPage } from "../../types";
 
 export async function generateMetadata({
   params,
@@ -42,6 +43,7 @@ export async function generateMetadata({
     title: `${partnerData.nome} em ${partnerData.cidade} | Telefone, WhatsApp e endereço`,
     description: `Saiba telefone, WhatsApp e endereço de ${partnerData.nome} em ${partnerData.cidade}. Parceiro do Cartão Beneficiar, que atua nas áreas de ${partnerData.categoria_obj.nome} e oferece ${servicos} com condições especiais para quem tem o cartão.`,
     url: `/partners/${city}/${name}`,
+    image: "",
   });
 }
 

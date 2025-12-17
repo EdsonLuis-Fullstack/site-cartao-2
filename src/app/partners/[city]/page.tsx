@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import { getMetaData } from "@/utils/seo/get-metadata";
 import { NextPage } from "next";
 import PartnerClinicSection from "@/components/partner-clinic-section";
@@ -8,6 +9,7 @@ import PartnersBannerSection from "@/components/partners-banner-section";
 import { NavBar } from "@/components/shared/navbar";
 import { api } from "@/instances/api";
 import { Metadata } from "next";
+import { PartnerDynamicPage } from "../types";
 
 export async function generateMetadata({
   params,
@@ -37,6 +39,7 @@ export async function generateMetadata({
       return getMetaData({
         title: `${clinicName}`,
         description: `Clínica em ${partner.cidade} parceira do Cartão Beneficiar. Consultas médicas, odontológicas, exames laboratoriais e de imagem com condições acessíveis. Veja endereço, horários e formas de contato.`,
+        image: "",
         url: `/partners/${city}`,
       });
     } else if (partnersUnit.length > 1) {
@@ -47,6 +50,7 @@ export async function generateMetadata({
       return getMetaData({
         title: `${clinicName} – ${unitName}`,
         description: `Clínica em ${firstPartner.cidade} - ${unitName} parceira do Cartão Beneficiar. Consultas médicas, odontológicas, exames laboratoriais e de imagem com condições acessíveis. Veja endereço, horários e formas de contato.`,
+        image: "",
         url: `/partners/${city}`,
       });
     }
@@ -54,6 +58,7 @@ export async function generateMetadata({
     return getMetaData({
       title: `Parceiros em ${cityWithoutUf} | Beneficiar`,
       description: "Conheça nossos parceiros credenciados ao Cartão Beneficiar",
+      image: "",
       url: `/partners/${city}`,
     });
   } catch (error) {
@@ -62,6 +67,7 @@ export async function generateMetadata({
     return getMetaData({
       title: `Parceiros em ${city} | Beneficiar`,
       description: "Conheça nossos parceiros credenciados ao Cartão Beneficiar",
+      image: "",
       url: `/partners/${city}`,
     });
   }
