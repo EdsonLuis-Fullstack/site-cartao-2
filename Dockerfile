@@ -1,20 +1,23 @@
+# Use a versão oficial do Node.js
 FROM node:20.13.1
 
-# Set the working directory inside the container
+# Diretório de trabalho dentro do container
 WORKDIR /app
 
-# Copy package files and install dependencies
+# Copiar arquivos de dependências
 COPY package*.json ./
-RUN npm ci --only=production
 
-# Copy the entire application code
+# Instalar todas as dependências (prod + dev) para permitir build do Next.js
+RUN npm install
+
+# Copiar todo o código da aplicação
 COPY . .
 
-# Build the application
+# Build da aplicação
 RUN npm run build
 
-# Expose the port your app runs on
+# Expor a porta padrão do Next.js
 EXPOSE 3000
 
-# Command to start the application
+# Comando para iniciar a aplicação
 CMD ["npm", "start"]
