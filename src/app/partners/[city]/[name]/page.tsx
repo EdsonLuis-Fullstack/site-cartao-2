@@ -1,4 +1,3 @@
-export const dynamic = 'force-dynamic'
 import { getMetaData } from "@/utils/seo/get-metadata";
 import { NextPage } from "next";
 import Footer from "@/components/footer";
