@@ -143,12 +143,12 @@ export default function ServicesCarouselSection({
   return (
     <section
       className={cn(
-        "relative w-full flex flex-col font-(family-name:--font-figtree) items-center bg-white py-20 px-6",
+        "relative w-full flex flex-col font-(family-name:--font-figtree) items-center bg-white  px-6",
         className
       )}
     >
       {/* Main heading */}
-      <div className="text-center mb-16 font-['Manrope']">
+      <div className="text-center mb-16 pb-10 font-['Manrope']">
         <h2 className="text-4xl md:text-5xl font-medium leading-tight max-w-xl mx-auto">
           <span className="text-black">O que sua família </span>
           <span className="text-[#61bb5a]">acessa com o Beneficiar</span>

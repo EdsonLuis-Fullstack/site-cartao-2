@@ -9,7 +9,6 @@ import clinicSectionImage2 from "../../public/images/happy-indian.png";
 import clinicSectionImage3 from "../../public/images/Especialidades.png";
 import clinicSectionImage4 from "../../public/images/ophthalmolog.png";
 
-
 interface FeatureItem {
   title: string;
 }
@@ -20,13 +19,13 @@ const features: FeatureItem[] = [
   { title: "Diversas especialidades médicas" },
   { title: "Clínicas odontológicas integradas" },
 ];
+
 const featureImages = [
   clinicSectionImage,
   clinicSectionImage2,
   clinicSectionImage3,
   clinicSectionImage4,
 ];
-
 
 interface ClinicsPartnersSectionProps {
   className?: string;
@@ -35,17 +34,22 @@ interface ClinicsPartnersSectionProps {
 export default function ClinicsPartnersSection({
   className,
 }: ClinicsPartnersSectionProps) {
-  // ▶ CONTROLE DO ITEM ATIVO
   const [activeIndex, setActiveIndex] = useState(0);
+  const [key, setKey] = useState(0);
 
-  // ▶ TIMER DE 4s
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % features.length);
+      setKey((prev) => prev + 1);
     }, 4000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [activeIndex]);
+
+  const handleFeatureClick = (index: number) => {
+    setActiveIndex(index);
+    setKey((prev) => prev + 1);
+  };
 
   return (
     <section
@@ -54,7 +58,6 @@ export default function ClinicsPartnersSection({
         className
       )}
     >
-      {/* Main heading */}
       <div className="text-center mb-16">
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium leading-tight max-w-4xl mx-auto">
           <span className="text-[#61bb5a]">Clínicas parceiras </span>
@@ -64,10 +67,8 @@ export default function ClinicsPartnersSection({
         </h2>
       </div>
 
-      {/* Content container */}
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-20">
-          {/* Left content */}
           <div className="lg:col-span-4 space-y-6">
             <h3 className="text-[#f87315] text-xl font-semibold">
               Saúde acessível com quem entende de cuidado
@@ -77,17 +78,15 @@ export default function ClinicsPartnersSection({
               que oferecem atendimento humanizado, estrutura completa e
               agilidade em exames e consultas.
             </p>
-            <p className="text-[#61bb5a] text-lg font-medium">
+            <p onClick={() => window.location.href = "https://checkout.cartaobeneficiar.com.br/"} className="text-[#61bb5a] text-lg font-medium cursor-pointer">
               Menos espera, mais saúde no seu tempo.
             </p>
           </div>
 
-          {/* Center image */}
           <div className="lg:col-span-4 flex justify-center">
             <div className="relative w-[280px] md:w-[320px] h-[380px] md:h-[420px] rounded-xl overflow-hidden shadow-lg">
-              {/* 🔴 IMAGEM PRONTA PARA VOCÊ TROCAR POR FEATURE */}
               <Image
-                key={activeIndex} // força transição suave
+                key={activeIndex}
                 src={featureImages[activeIndex]}
                 alt="Profissional de saúde usando smartphone"
                 fill
@@ -98,13 +97,16 @@ export default function ClinicsPartnersSection({
             </div>
           </div>
 
-          {/* Right features */}
           <div className="lg:col-span-4 space-y-6">
             {features.map((feature, index) => {
               const isActive = index === activeIndex;
 
               return (
-                <div key={index} className="space-y-3">
+                <div
+                  key={index}
+                  className="space-y-3 cursor-pointer"
+                  onClick={() => handleFeatureClick(index)}
+                >
                   <h4
                     className={cn(
                       "text-xl font-semibold transition-colors",
@@ -114,7 +116,6 @@ export default function ClinicsPartnersSection({
                     {feature.title}
                   </h4>
 
-                  {/* 🔴 BORDA EXISTENTE, AGORA ANIMADA */}
                   <div className="relative overflow-hidden">
                     <div className="flex items-center">
                       <div className="flex-1 h-px bg-gray-300" />
@@ -122,6 +123,7 @@ export default function ClinicsPartnersSection({
 
                     {isActive && (
                       <div
+                        key={key}
                         className="absolute left-0 top-0 h-0.5 bg-[#f87315]"
                         style={{
                           animation: "progress 4s linear",
@@ -139,7 +141,6 @@ export default function ClinicsPartnersSection({
         <InfinityCarousel />
       </div>
 
-      {/* 🔴 ANIMAÇÃO GLOBAL (não mexe em estilos existentes) */}
       <style jsx>{`
         @keyframes progress {
           from {

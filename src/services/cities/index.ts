@@ -36,7 +36,8 @@ export class Cities {
             "sortBy": "cidade",
             "sortDirection": "ASC",
             "filterOnlyExist": "U" //P - Apenas cidades com parceiros || U - Apenas unidades com parceiros || Null - Todas as cidades
-            });
+            
+            },);
 
             const responseFormatted = response.data.data.map((c: {
                 idCidade: number;
