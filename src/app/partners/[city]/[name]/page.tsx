@@ -64,7 +64,6 @@ const Page: NextPage<PartnerDynamicPage> = async ({
     : city;
   
   const uf = hasUfSuffix ? lastPart : null;
-  console.log({name, cityWithoutUf, uf});
   const partnerData = await api.partner.findbyNameAndCity({
     name: name.replaceAll("-", " "),
     city: cityWithoutUf.replaceAll("-", " "),

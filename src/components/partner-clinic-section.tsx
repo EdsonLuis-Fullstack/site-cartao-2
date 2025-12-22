@@ -2,10 +2,22 @@
 import Image from "next/image";
 import { Globe, Phone, Building2 } from "lucide-react";
 import whatsappIcon from "@/assets/whatsapp.svg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function PartnerClinicSection({PartnerData}: {PartnerData: any[]}) {
+export default function PartnerClinicSection({PartnerData, bannerPartners}: {PartnerData: any[], bannerPartners: any[]}) {
   const [selectedUnitIndex, setSelectedUnitIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   
   if (!PartnerData || PartnerData.length === 0) {
     return null;
@@ -21,10 +33,24 @@ export default function PartnerClinicSection({PartnerData}: {PartnerData: any[]}
     ? `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${currentUnit.foto}`
     : null;
   
-//   const clinicPhotoUrl = currentUnit?.foto_clinica
-// ? `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${currentUnit.foto_clinica}`
-//     : null;
-const clinicPhotoUrl = `https://api.cartaobeneficiar.com.br/uploads/parceiros/clinica_692f4abe2e98d.webp`
+  // Seleciona a imagem do banner baseado em mobile ou desktop
+  const getBannerUrl = () => {
+    if (!bannerPartners || bannerPartners.length === 0) {
+      return `https://api.cartaobeneficiar.com.br/uploads/parceiros/clinica_692f4abe2e98d.webp`;
+    }
+    
+    const banner = bannerPartners[0];
+    const baseUrl = process.env.NEXT_PUBLIC_IMAGE_BASE_BANNER_URL || 'https://api.cartaobeneficiar.com.br/uploads/banners/';
+    
+    if (isMobile && banner.imagemMobile) {
+      return `${baseUrl}${banner.imagemMobile}`;
+    }
+    
+    return `${baseUrl}${banner.image}`;
+  };
+
+  const clinicPhotoUrl = getBannerUrl();
+  
   const formatPhoneNumber = (phone: string) => {
     const cleaned = phone.replace(/\D/g, '');
     if (cleaned.startsWith('55')) {
@@ -61,8 +87,6 @@ const clinicPhotoUrl = `https://api.cartaobeneficiar.com.br/uploads/parceiros/cl
     const address = addressParts.join(', ');
     return `https://maps.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
   };
-
-
 
   return (
     <section className="bg-white relative w-full min-h-screen py-28 font-(family-name:--font-figtree)">

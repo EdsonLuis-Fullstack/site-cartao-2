@@ -1,3 +1,4 @@
+import { Banners } from "./banners";
 import { Categories } from "./categories";
 import { Cities } from "./cities";
 import { Partner } from "./partner";
@@ -11,6 +12,7 @@ export class BeneficiarApi {
     public partner: Partner;
     public cities: Cities;
     public unit: Unit;
+    public banners: Banners;
 
     constructor() {
         this.partners = new Partners();
@@ -19,5 +21,6 @@ export class BeneficiarApi {
         this.partner = new Partner();
         this.cities = new Cities();
         this.unit = new Unit();
+        this.banners = new Banners();
     }
 }

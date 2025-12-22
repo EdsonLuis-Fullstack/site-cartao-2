@@ -28,7 +28,6 @@ export async function generateMetadata({
     : city;
   
   const uf = hasUfSuffix ? lastPart : null;
-  console.log({ cityWithoutUf, uf });
 
   const partnersUnit = await api.partners.findByCityPartner({ city: cityWithoutUf, uf: uf });
     if (partnersUnit.length === 1) {
@@ -55,7 +54,7 @@ export async function generateMetadata({
     }
 
     return getMetaData({
-      title: `Parceiros em ${cityWithoutUf} | Beneficiar`,
+      title: `Parceiros em ${cityWithoutUf.split("-").join(" ")} | Beneficiar`,
       description: "Conheça nossos parceiros credenciados ao Cartão Beneficiar",
       image: "",
       url: `/partners/${city}`,
@@ -89,24 +88,23 @@ const Page: NextPage<PartnerDynamicPage> = async ({
     : city;
   
   const uf = hasUfSuffix ? lastPart : null;
-  console.log({ cityWithoutUf, uf });
   
 
-  const [citiesData, partnersData, categoriesData, unitPartners] = await Promise.all([
+  const [citiesData, partnersData, categoriesData, unitPartners, bannerPartners] = await Promise.all([
     api.cities.findAll({}),
     api.partners.findByCity({ city: cityWithoutUf, uf: uf }),
     api.categories.findAll({}),
     api.partners.findByCityPartner({ city: cityWithoutUf, uf: uf }),
+    api.banners.findAll(),
   ]);
 
-  console.log({ unitPartners });
 
 
   return (
     <main className="relative">
       <PartnersBannerSection cities={citiesData} selectedCityName={city} />
       <NavBar />
-      <PartnerClinicSection PartnerData={unitPartners} />
+      <PartnerClinicSection PartnerData={unitPartners} bannerPartners={bannerPartners} />
       <OtherPartnersSection
         partners={partnersData.data}
         categories={categoriesData}

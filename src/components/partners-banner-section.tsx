@@ -67,7 +67,6 @@ export default function PartnersBannerSection({
     router.push(`/partners/${encoded}`);
   };
 
-  // Fecha dropdown ao clicar fora
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) {
@@ -80,7 +79,6 @@ export default function PartnersBannerSection({
 
   return (
     <div className="h-[780px] overflow-hidden relative rounded-bl-[80px] rounded-br-[80px] w-full bg-[#61BB5A] font-(family-name:--font-livvic)">
-      {/* Decorações */}
       <Image
         src={whiteEllipsisBelow}
         alt=""
@@ -91,8 +89,6 @@ export default function PartnersBannerSection({
         alt=""
         className="absolute right-0 -top-10 w-[400px]"
       />
-
-      {/* Conteúdo */}
       <div className="absolute left-4 md:left-[322px] top-[120px] md:top-60 max-w-[589px] text-white">
         <h1 className="text-[32px] md:text-[48px] font-medium leading-tight">
           Mais do que parceiros,
@@ -103,10 +99,7 @@ export default function PartnersBannerSection({
         <p className="mt-4 font-semibold text-[16px] md:text-[20px]">
           Encontre os parceiros mais próximos de você, organizados por categoria.
         </p>
-
-        {/* SELECT + BOTÃO */}
         <div ref={ref} className="flex items-center gap-4 mt-6 max-w-[520px]">
-          {/* Select custom */}
           <div className="relative w-full max-w-[409px]">
             <button
               onClick={() => setOpen((v) => !v)}
@@ -150,8 +143,6 @@ export default function PartnersBannerSection({
               </div>
             )}
           </div>
-
-          {/* BOTÃO CONFIRMAR (EDITÁVEL) */}
           <button
             onClick={handleConfirm}
             disabled={!selectedCity}
