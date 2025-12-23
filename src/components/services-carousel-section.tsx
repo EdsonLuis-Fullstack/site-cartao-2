@@ -15,6 +15,8 @@ import { useCallback, useState } from "react";
 import medical from "../../public/images/consultas-medicas.webp";
 import dental from "../../public/images/consultas-odontologicas.webp";
 import exams from "../../public/images/exames-laboratoriais.webp";
+import atendimento from "../../public/images/atendimento.png";
+import vacinas from "../../public/images/vacinasfamilia.jpg";
 import Link from "next/link";
 
 interface ServiceCard {
@@ -29,36 +31,36 @@ const services: ServiceCard[] = [
   {
     id: "1",
     title: "Consultas Médicas",
-    description: "Clínico geral gratuito + especialistas a partir de R$ 25",
+    description: "Clínico geral gratuito e especialistasa partir de R$ 25.",
     image: medical,
     bgColor: "green",
   },
   {
     id: "2",
     title: "Consultas Odontológicas",
-    description: "Até 50% de desconto em todos os procedimentos",
+    description: "Descontos de até 50% emprocedimentos odontológicos.",
     image: dental,
     bgColor: "orange",
   },
   {
     id: "3",
     title: "Exames Laboratoriais e de Imagem",
-    description: "Até 70% de desconto em exames laboratoriais e de imagem",
+    description: "Até 70% de desconto em exames laboratoriais e de imagem.",
     image: exams,
     bgColor: "green",
   },
   {
     id: "4",
-    title: "Telemedicina 24h",
-    description: "Atendimento médico online a qualquer hora do dia",
-    image: medical,
+    title: "Atendimento Médico Online 24h",
+    description: "Consultas online disponíveis a qualquer hora do dia",
+    image: atendimento,
     bgColor: "orange",
   },
   {
     id: "5",
-    title: "Vacinas",
-    description: "Descontos exclusivos em vacinas para toda a família",
-    image: exams,
+    title: "Vacinas Para toda a família",
+    description: "Descontos exclusivos em vacinas, com mais acesso e cuidado para todos.",
+    image: vacinas,
     bgColor: "green",
   },
 ];
@@ -143,7 +145,7 @@ export default function ServicesCarouselSection({
   return (
     <section
       className={cn(
-        "relative w-full flex flex-col font-(family-name:--font-figtree) items-center bg-white  px-6",
+        "relative w-full flex flex-col font-(family-name:--font-figtree) items-center bg-white pb-20  px-6",
         className
       )}
     >

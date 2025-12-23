@@ -12,7 +12,7 @@ export default function AboutBannerSection() {
     >
       {/* Background Ellipse */}
       <div
-        className="absolute w-[1066px] h-[1066px] right-20 -top-10"
+        className="absolute w-[1066px] h-[1000px] right-[-150px] -top-10"
         data-name="Ellipse"
         data-node-id="123:910"
       >
@@ -26,7 +26,7 @@ export default function AboutBannerSection() {
       </div>
       {/* Background Image */}
       <div
-        className="absolute h-[707px] w-[1063px] right-20 top-30"
+        className="absolute h-[707px] w-[1000px] right-[-150px]  top-30"
         data-name="Capa Home 4"
         data-node-id="123:910"
       >
@@ -41,7 +41,7 @@ export default function AboutBannerSection() {
 
       {/* Hero Content - Responsivo */}
       <div
-        className="absolute flex flex-col gap-[5px] items-start left-4 md:left-[322px] top-[120px] md:top-60 px-4 md:px-0 max-w-[calc(100%-2rem)] md:max-w-none"
+        className="absolute flex flex-col gap-[5px] items-start left-4 md:left-[250px] top-[120px  md:top-60 px-4 md:px-0 max-w-[calc(100%-2rem)] md:max-w-none"
         data-node-id="123:915"
       >
         <div

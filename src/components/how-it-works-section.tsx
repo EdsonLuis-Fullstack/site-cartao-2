@@ -23,6 +23,7 @@ interface StepData {
     subtitle: string;
     image: StaticImageData | string;
     alt: string;
+    largeImage?: boolean;
   }[];
 }
 
@@ -48,6 +49,7 @@ const stepsData: Record<number, StepData> = {
         subtitle: "(mais prático), consulte disponibilidade",
         image: energy,
         alt: "Conta de energia elétrica",
+        largeImage: true,
       },
       {
         id: 2,
@@ -55,6 +57,7 @@ const stepsData: Record<number, StepData> = {
         subtitle: "(sem comprometer o limite)",
         image: creditCard,
         alt: "Cartão de crédito",
+        largeImage: false,
       },
       {
         id: 3,
@@ -62,6 +65,7 @@ const stepsData: Record<number, StepData> = {
         subtitle: "(sem comprometer o limite)",
         image: pix,
         alt: "Pix recorrente",
+        largeImage: true,
       },
       {
         id: 4,
@@ -69,6 +73,7 @@ const stepsData: Record<number, StepData> = {
         subtitle: "(sujeito à análise de crédito)",
         image: boleto,
         alt: "Boleto bancário",
+        largeImage: true,
       },
     ],
   },
@@ -81,6 +86,7 @@ const stepsData: Record<number, StepData> = {
         subtitle: "Mensalidade: R$ 39,90",
         image: ticket,
         alt: "Ticket de benefício",
+        largeImage: true,
       },
     ],
   },
@@ -146,9 +152,17 @@ function StepIndicator({
 
 function StepItemCard({
   item,
+  currentStep,
 }: {
   item: StepData["items"][number];
+  currentStep: number;
 }) {
+  const imageSize = item.largeImage 
+    ? { width: "w-[220px]", height: "h-[150px]", sizes: "220px" }
+    : { width: "w-[180px]", height: "h-[120px]", sizes: "180px" };
+
+  const isStep4 = currentStep === 4;
+
   return (
     <div className="border border-[#61bb5a] rounded-2xl w-[260px] h-[240px] bg-white hover:shadow-lg transition-all duration-300 hover:border-[#f87315] cursor-pointer flex flex-col items-center">
       {/* Text */}
@@ -162,14 +176,16 @@ function StepItemCard({
       </div>
 
       {/* Image */}
-      <div className="mt-auto mb-4">
-        <div className="relative w-[180px] h-[120px]">
+      <div className={cn(
+        isStep4 ? "flex items-center justify-center flex-1" : "mt-auto mb-4"
+      )}>
+        <div className={cn("relative", imageSize.width, imageSize.height)}>
           <Image
             src={item.image}
             alt={item.alt}
             fill
             className="object-contain"
-            sizes="180px"
+            sizes={imageSize.sizes}
           />
         </div>
       </div>
@@ -193,7 +209,6 @@ export default function HowItWorksSection({ className }: { className?: string })
       )}
     >
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-5xl font-normal text-black mb-4">
             Como funciona na prática
@@ -214,8 +229,6 @@ export default function HowItWorksSection({ className }: { className?: string })
             {currentStepData.title}
           </h3>
         </div>
-
-        {/* Cards */}
         <div
           className={cn(
             "flex justify-center gap-8 mx-auto",
@@ -227,6 +240,7 @@ export default function HowItWorksSection({ className }: { className?: string })
             <StepItemCard
               key={`${currentStep}-${item.id}`}
               item={item}
+              currentStep={currentStep}
             />
           ))}
         </div>

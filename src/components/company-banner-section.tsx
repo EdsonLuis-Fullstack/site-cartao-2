@@ -21,11 +21,15 @@ export default function CompanyBannerSection() {
           height={837}
           priority
         />
+        {/* Overlay suave para melhor contraste */}
+        <div
+          className="absolute inset-0 bg-black/15"
+        />
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(59.42% 59.44% at 67.97% 51.73%, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.50) 77.4%)",
+              "radial-gradient(59.42% 59.44% at 67.97% 51.73%, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.45) 77.4%)",
           }}
         />
       </div>
@@ -35,18 +39,18 @@ export default function CompanyBannerSection() {
         data-node-id="123:915"
       >
         <div
-          className="font-normal leading-12 md:leading-16 text-[32px] md:text-[48px] text-white w-full md:w-[589px] whitespace-pre-wrap"
+          className="font-normal leading-8 md:leading-16 text-[32px] md:text-[48px] text-white w-full md:w-[589px] whitespace-pre-wrap"
           data-node-id="123:916"
         >
           <p className="mb-0">
-            <span className="font-medium text-white">
-              Saúde acessível para sua equipe. Valor real para sua empresa.
+            <span className=" tracking-tight font-medium text-white">
+              Saúde acessível para sua equipe. Valor real para <br /> sua empresa.
             </span>
             <span className="font-normal"> </span>
           </p>
         </div>
         <p
-          className="font-semibold leading-[1.9] text-[16px] font-(family-name:--font-figtree) md:text-[20px] text-white w-full whitespace-pre-wrap"
+          className="font-bold leading-[1.9] text-[16px] font-(family-name:--font-figtree) md:text-[20px] text-white w-full whitespace-pre-wrap drop-shadow-sm"
           data-node-id="123:917"
         >
           Sem carência. Família incluída. Preços que cabem no bolso.

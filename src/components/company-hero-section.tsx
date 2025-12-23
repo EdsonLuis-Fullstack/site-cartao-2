@@ -8,21 +8,26 @@ import rectangleBottomBar from "../../public/images/Rectangle 18.webp";
 
 export default function CompanyHeroSection() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [key, setKey] = useState(0);
 
-  // ▶ troca automática a cada 4s
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % 3);
+      setKey((prev) => prev + 1);
     }, 4000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [activeIndex]);
+
+  const handleCardClick = (index: number) => {
+    setActiveIndex(index);
+    setKey((prev) => prev + 1);
+  };
 
   return (
     <section className="py-[134px] px-4 font-(family-name:--font-figtree)">
       <div className="max-w-7xl mx-auto">
         <div className="flex gap-[130px] items-center">
-          {/* Left Side */}
           <div className="relative w-[706px] h-[595px] rounded-[20px] overflow-hidden shrink-0">
             <Image
               src={fatherWithSon}
@@ -32,18 +37,17 @@ export default function CompanyHeroSection() {
             />
           </div>
 
-          {/* Right Side */}
           <div className="flex flex-col gap-[51px] w-[434px] shrink-0">
             <h1 className="font-medium text-[48px] text-black leading-normal w-[380px]">
               Para sua equipe
             </h1>
 
             <div className="flex flex-col gap-[60px] w-[434px]">
-              {/* CARD 1 */}
               <div
-                className={`flex gap-5 py-7 px-5 h-[111px] rounded-[10px] overflow-hidden relative ${
+                className={`flex gap-5 py-7 px-5 h-[111px] rounded-[10px] overflow-hidden relative cursor-pointer ${
                   activeIndex === 0 ? "bg-[#e4e4e4]" : "bg-[#fdfbf8]"
                 }`}
+                onClick={() => handleCardClick(0)}
               >
                 <DollarSign className="w-[50px] h-[50px] p-3 bg-[#434343] text-white rounded-[50px]" />
 
@@ -65,6 +69,7 @@ export default function CompanyHeroSection() {
 
                 {activeIndex === 0 && (
                   <div
+                    key={key}
                     className="absolute bottom-[0.5px] left-0 h-2 bg-[#f87315] rounded-r-[50px]"
                     style={{
                       animation: "progress 4s linear",
@@ -74,11 +79,11 @@ export default function CompanyHeroSection() {
                 )}
               </div>
 
-              {/* CARD 2 */}
               <div
-                className={`flex gap-5 py-7 px-5 h-[111px] rounded-[10px] overflow-hidden relative ${
+                className={`flex gap-5 py-7 px-5 h-[111px] rounded-[10px] overflow-hidden relative cursor-pointer ${
                   activeIndex === 1 ? "bg-[#e4e4e4]" : "bg-[#fdfbf8]"
                 }`}
+                onClick={() => handleCardClick(1)}
               >
                 <BadgePercent className="w-[50px] h-[50px] bg-[#434343] text-white rounded-[50px] p-3" />
 
@@ -97,6 +102,7 @@ export default function CompanyHeroSection() {
 
                 {activeIndex === 1 && (
                   <div
+                    key={key}
                     className="absolute bottom-[0.5px] left-0 h-2 bg-[#f87315] rounded-r-[50px]"
                     style={{
                       animation: "progress 4s linear",
@@ -106,11 +112,11 @@ export default function CompanyHeroSection() {
                 )}
               </div>
 
-              {/* CARD 3 */}
               <div
-                className={`flex gap-5 py-7 px-5 h-[111px] rounded-[10px] overflow-hidden relative ${
+                className={`flex gap-5 py-7 px-5 h-[111px] rounded-[10px] overflow-hidden relative cursor-pointer ${
                   activeIndex === 2 ? "bg-[#e4e4e4]" : "bg-[#fdfbf8]"
                 }`}
+                onClick={() => handleCardClick(2)}
               >
                 <Heart className="w-[50px] h-[50px] bg-[#434343] text-white rounded-[50px] p-3" />
 
@@ -130,6 +136,7 @@ export default function CompanyHeroSection() {
 
                 {activeIndex === 2 && (
                   <div
+                    key={key}
                     className="absolute bottom-[0.5px] left-0 h-2 bg-[#f87315] rounded-r-[50px]"
                     style={{
                       animation: "progress 4s linear",
@@ -143,7 +150,6 @@ export default function CompanyHeroSection() {
         </div>
       </div>
 
-      {/* animação da borda */}
       <style jsx>{`
         @keyframes progress {
           from {

@@ -7,7 +7,7 @@ import emojiTriste from "../../public/images/emoji-triste 1.png";
 
 export default function FoundPage() {
     return (
-        <div className="flex flex-col min-h-screen mt-10 justify-center items-center text-center px-6">
+        <div className="flex flex-col min-h-screen justify-center bg-[#F3F2F2] items-center text-center px-6">
 
         {/* Ícone triste */}
        <div className="flex justify-center ">

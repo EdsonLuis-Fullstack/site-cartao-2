@@ -21,24 +21,36 @@ export default function ContactBannerSection() {
         />
       </div>
 
-      {/* Hero Content - Responsivo */}
+      {/* Hero Content - Responsivo com fontes proporcionais */}
       <div
         className="absolute flex flex-col gap-[5px] items-start left-4 md:left-[322px] top-[120px] md:top-80 px-4 md:px-0 max-w-[calc(100%-2rem)] md:max-w-none"
       >
         <div
-          className="font-normal leading-12 md:leading-16 text-[32px] md:text-[48px] text-white w-full md:w-[589px] whitespace-pre-wrap"
+          className="font-normal text-white w-full md:w-[589px] whitespace-pre-wrap"
+          style={{
+            fontSize: 'clamp(2.5rem, 6vw + 0.5rem, 4rem)',
+            lineHeight: 'clamp(3rem, 7vw, 5rem)'
+          }}
         >
           <p className="mb-0">
             <span className="font-medium text-white">Vamos conversar?</span>
           </p>
         </div>
         <p
-          className="font-semibold font-(family-name:--font-figtree) leading-[1.9] text-[16px] md:text-[20px] text-white w-full whitespace-pre-wrap"
+          className="font-semibold font-(family-name:--font-figtree) text-white w-full whitespace-pre-wrap"
+          style={{
+            fontSize: 'clamp(1.25rem, 2.5vw + 0.5rem, 1.75rem)',
+            lineHeight: 'clamp(1.75rem, 3.5vw, 2.25rem)'
+          }}
         >
           Estamos aqui para tirar suas dúvidas e encontrar
         </p>
         <p
-          className="font-semibold leading-1.5 text-[16px] md:text-[20px] text-white w-full whitespace-pre-wrap"
+          className="font-semibold text-white w-full whitespace-pre-wrap"
+          style={{
+            fontSize: 'clamp(1.25rem, 2.5vw + 0.5rem, 1.75rem)',
+            lineHeight: 'clamp(1.75rem, 3.5vw, 2.25rem)'
+          }}
           data-node-id="123:917"
         >
           a melhor forma de cuidar de você

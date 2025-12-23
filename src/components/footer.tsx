@@ -68,7 +68,7 @@ export default function Footer() {
               data-node-id="245:657"
             >
               <Link
-                href="/"
+                href="https://www.instagram.com/cartaobeneficiar"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="border border-[#f87315] border-solid rounded-[50px] hover:bg-[#f87315] hover:scale-105 transition-all duration-300 group"
@@ -99,7 +99,7 @@ export default function Footer() {
                 </div>
               </Link>
               <Link
-                href="/"
+                href="https://www.facebook.com/cartaobeneficiar"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="relative w-[50px] h-[50px] hover:scale-105 transition-transform duration-300"
@@ -114,7 +114,7 @@ export default function Footer() {
                 />
               </Link>
               <Link
-                href="/"
+                href="https://www.tiktok.com/@cartaobeneficiar_"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="border border-[#f87315] border-solid rounded-[50px] w-[50px] h-[50px] hover:bg-[#f87315] hover:scale-105 transition-all duration-300 group"
@@ -171,13 +171,13 @@ export default function Footer() {
                   >
                     Perguntas Frequentes
                   </Link>
-                  <Link
+                  {/* <Link
                     href="/blog"
                     className="hover:text-[#f87315] transition-colors"
                     data-node-id="245:674"
                   >
                     Blog
-                  </Link>
+                  </Link> */}
                   <Link
                     href="/contact"
                     className="hover:text-[#f87315] transition-colors"

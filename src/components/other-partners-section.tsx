@@ -242,7 +242,7 @@ export default function OtherPartnersSection({
               </span>
             </button>
           </div>
-          <div className="w-[1281px] self-start ml-[314px]">
+          <div className="w-full self-start  pl-[314px]">
             <div className="flex flex-col gap-[32px]">
               {partners.length > 0 ? (
                 Array.from(
@@ -250,7 +250,7 @@ export default function OtherPartnersSection({
                   (_, rowIndex) => (
                     <div
                       key={rowIndex}
-                      className="flex items-center justify-between px-[9px] w-[1281px]"
+                      className="flex items-center justify-between gap-10 px-[9px] w-full"
                     >
                       {partners
                         .slice(rowIndex * 3, (rowIndex + 1) * 3)

@@ -32,7 +32,7 @@ const testimonials: Testimonial[] = [
   {
     id: "1",
     name: "João Vitti, 56 anos",
-    occupation: "Operador de máquinas",
+    occupation: "Porteiro",
     location: "Ribeirão Preto",
     quote: "No mesmo dia em que fiz o cartão, já saí com a consulta do meu filho marcada. Hoje, minha família tem acesso à saúde de qualidade.",
     image: testimonial1,
@@ -52,7 +52,7 @@ const testimonials: Testimonial[] = [
   {
     id: "3",
     name: "Celeste, 60 anos",
-    occupation: "Recepcionista",
+    occupation: "Aposentada",
     location: "Piracicaba",
     quote: "Uma amiga do trabalho me indicou e não me arrependo. Consultas com médicos atenciosos, tudo por um preço pequenininho.",
     image: testimonial3,
@@ -180,7 +180,7 @@ function TestimonialCard({ testimonial }: TestimonialCardProps) {
               isOrange ? "text-white" : "text-[#838383]"
             )}
           >
-            {testimonial.occupation}, {testimonial.location}
+            {testimonial.occupation}, <br></br> {testimonial.location}
           </p>
         </div>
       </div>
@@ -218,7 +218,7 @@ export default function TestimonialsSection({
           </h2>
 
           {/* Custom Navigation Buttons */}
-          <div className="w-full flex items-center justify-center gap-16">
+          <div className="w-full flex items-center justify-center gap-16 hidden">
             <button
               onClick={scrollPrev}
               className="w-[58px] h-[58px] cursor-pointer border border-white rounded-full bg-transparent flex items-center justify-center"

@@ -9,20 +9,17 @@ import Link from 'next/link';
 export default function HowToStartSection() {
   return (
     <section className="bg-[#ededed] relative w-full min-h-[785px] px-4 py-20 font-(family-name:--font-figtree)">
-      {/* Header */}
       <div className="absolute left-1/2 transform -translate-x-1/2 top-[78px] w-[458px] text-center">
-        <h2 className="font-medium text-[48px] text-black mb-[29px] leading-normal">
+        <h2 className="font-medium text-[48px] text-black mb-[29px] leading-normal tracking-tight">
           Como começar?
         </h2>
-        <p className="font-normal text-[18px] text-black leading-normal">
+        <p className="font-normal text-[18px] text-black leading-normal tracking-tight">
           O passo a passo para ter o Beneficiar na sua empresa.
         </p>
       </div>
 
-      {/* Steps Cards */}
       <div className="flex justify-center mt-[180px]">
         <div className="flex gap-5 flex-col items-center justify-center md:flex-row">
-          {/* Step 1 */}
           <div className="bg-white border border-[#f7f7f7] rounded-[10px] w-[230px] h-[338px] relative overflow-hidden">
             <div className="absolute left-[68.5px] top-[24px] w-[94px] h-[141px]">
               <Image
@@ -34,10 +31,10 @@ export default function HowToStartSection() {
               />
             </div>
             <div className="absolute left-[25.5px] top-[169px] w-[180px] text-center">
-              <h3 className="font-extrabold text-[20px] text-[#f87315] mb-[20px] h-[48px] leading-normal">
+              <h3 className="font-extrabold text-[20px] text-[#f87315] mb-[20px] h-[48px] leading-normal tracking-tight">
                 A empresa contrata o pacote
               </h3>
-              <p className="font-medium text-[14px] text-[dimgrey] leading-normal">
+              <p className="font-medium text-[14px] text-[dimgrey] leading-normal tracking-tight">
                 Contrata o pacote ideal para sua equipe.
               </p>
             </div>
@@ -55,10 +52,10 @@ export default function HowToStartSection() {
               />
             </div>
             <div className="absolute left-[25.5px] top-[169px] w-[180px] text-center">
-              <h3 className="font-extrabold text-[20px] text-[#f87315] mb-[20px] h-[48px] leading-normal">
+              <h3 className="font-extrabold text-[20px] text-[#f87315] mb-[20px] h-[48px] leading-normal tracking-tight">
                 Colaboradores recebem cartões
               </h3>
-              <p className="font-medium text-[14px] text-[dimgrey] leading-normal">
+              <p className="font-medium text-[14px] text-[dimgrey] leading-normal tracking-tight">
                 Entregue na empresa ou retiram no escritório mais próximo.
               </p>
             </div>
@@ -76,12 +73,11 @@ export default function HowToStartSection() {
               />
             </div>
             <div className="absolute left-[25.5px] top-[169px] w-[180px] text-center">
-              <h3 className="font-extrabold text-[20px] text-[#f87315] mb-[20px] leading-normal">
+              <h3 className="font-extrabold text-[20px] text-[#f87315] mb-[20px] h-[48px] leading-normal tracking-tight">
                 Agendam direto com os parceiros.
               </h3>
-              <p className="font-medium text-[14px] text-[dimgrey] leading-normal">
-                <span>Orientação médica por telefone. </span>Adulto e infantil
-                incluso.
+              <p className="font-medium text-[14px] text-[dimgrey] leading-normal tracking-tight">
+                Orientação médica por telefone. Adulto e infantil incluso.
               </p>
             </div>
           </div>
@@ -98,10 +94,10 @@ export default function HowToStartSection() {
               />
             </div>
             <div className="absolute left-[25.5px] top-[169px] w-[180px] text-center">
-              <h3 className="font-extrabold text-[20px] text-[#f87315] mb-[20px] h-[48px] leading-normal">
+              <h3 className="font-extrabold text-[20px] text-[#f87315] mb-[20px] h-[48px] leading-normal tracking-tight">
                 Desconto aplicado no uso
               </h3>
-              <p className="font-medium text-[14px] text-[dimgrey] leading-normal">
+              <p className="font-medium text-[14px] text-[dimgrey] leading-normal tracking-tight">
                 Economia imediata, sem processos burocráticos
               </p>
             </div>
@@ -111,9 +107,9 @@ export default function HowToStartSection() {
 
       {/* CTA Button */}
       <div className="flex justify-center mt-20">
-         <Link href="http://checkout.cartaobeneficiar.com.br/">
+         <Link href="/contact">
         <button className="bg-[#3a3b47] cursor-pointer px-[60px] py-3.5 rounded-[100px] flex items-center gap-[15px] hover:bg-[#2a2b35] transition-colors">
-          <span className="font-semibold text-[16px] text-white uppercase leading-normal">
+          <span className="font-semibold text-[16px] text-white uppercase leading-normal tracking-tight">
             Falar com um consultor
           </span>
           <ArrowRight className="w-6 h-6 text-white -rotate-45" />

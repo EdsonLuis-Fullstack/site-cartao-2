@@ -2,7 +2,7 @@
 import Image, { StaticImageData } from "next/image";
 import { cn } from "@/lib/utils";
 import { ArrowUpRight } from "lucide-react";
-import handWithCard from "../../public/images/mao-cartao.webp";
+import handWithCard from "../../public/images/mao-cartao.png";
 import qualityImage from "../../public/images/plaqueta-medica.webp";
 import pharmacyImage from "../../public/images/maos-apertadas.webp";
 import leisureImage from "../../public/images/pipoca.webp";
@@ -95,11 +95,11 @@ function PartnerCardComponent({ card }: PartnerCardComponentProps) {
 
   return (
     <div className="bg-white border border-gray-100 rounded-lg h-[338px] w-[230px] overflow-hidden relative">
-      <div className="absolute left-8 top-8 w-[127px]">
-        <h3 className="text-[#f87315] text-xl font-extrabold mb-5">
+      <div className="absolute left-8 top-8 w-[174px]">
+        <h3 className="text-[#f87315] text-xl font-extrabold mb-5 leading-tight">
           {card.title}
         </h3>
-        <p className="text-gray-600 text-base font-medium">
+        <p className="text-gray-600 text-base font-medium leading-normal">
           {card.description}
         </p>
       </div>

@@ -13,8 +13,17 @@ export default function TransformedLivesSection() {
       <div className="max-w-6xl mx-auto text-center">
         {/* Video Container */}
         <div className="relative mb-8">
+          <div className="text-white text-[21px] leading-relaxed mb-8 max-w-[500px] mx-auto">
+          <h2 className="text-white text-[52px] font-medium mb-6 leading-tight">
+          Vidas Transformadas
+        </h2>
+        <p className="mb-4">
+            Com o Beneficiar, milhares de pessoas têm acesso à saúde, alimentação e dignidade todos os dias
+          </p>
+          </div>
           <div className="relative w-full max-w-[640px] mx-auto rounded-2xl overflow-hidden aspect-video">
             {/* Thumbnail OR Video */}
+            
             {!isPlaying ? (
               <>
                 <Image
@@ -44,15 +53,10 @@ export default function TransformedLivesSection() {
         </div>
 
         {/* Title */}
-        <h2 className="text-white text-[52px] font-medium mb-6 leading-tight">
-          Vidas Transformadas
-        </h2>
+        
 
         {/* Description */}
         <div className="text-white text-[21px] leading-relaxed mb-8 max-w-[500px] mx-auto">
-          <p className="mb-4">
-            Com o Beneficiar, milhares de pessoas têm acesso à saúde, alimentação e dignidade todos os dias
-          </p>
           <p>
             Por trás de cada uso do nosso cartão, existe uma história de superação, de cuidado e de esperança renovada.<br/> São famílias inteiras sendo transformadas
           </p>

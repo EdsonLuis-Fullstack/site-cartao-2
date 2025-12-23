@@ -65,7 +65,7 @@ export default function TransformationMethodSection() {
                 <br />
                 processos
               </h3>
-              <p className="text-black text-[16px] font-normal">
+              <p className="text-black text-[14px] font-normal">
                 Eliminamos carências que impedem cuidado imediato
               </p>
             </div>
@@ -85,7 +85,7 @@ export default function TransformationMethodSection() {
               <h3 className="text-[#61bb5a] text-[22px] font-medium leading-tight">
                 Democratizamos acesso
               </h3>
-              <p className="text-black text-[16px] font-normal">
+              <p className="text-black text-[14px] font-normal">
                 Levamos saúde de qualidade para famílias paulistas que mais
                 precisam
               </p>
@@ -107,7 +107,7 @@ export default function TransformationMethodSection() {
               <h3 className="text-[#f87315] text-[22px] font-medium leading-tight">
                 Humanizamos cuidado
               </h3>
-              <p className="text-black text-[16px] font-normal">
+              <p className="text-black text-[14px] font-normal">
                 Preços claros, processos simples, atendimento que enxerga
                 pessoas
               </p>

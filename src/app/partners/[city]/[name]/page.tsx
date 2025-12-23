@@ -31,7 +31,7 @@ export async function generateMetadata({
     uf: uf || null,
   });
 
-  const servicos = partnerData.servicos
+  const servicos = partnerData?.servicos
     .split(".")
     .at(0)
     ?.trim()
@@ -64,13 +64,11 @@ const Page: NextPage<PartnerDynamicPage> = async ({
     : city;
   
   const uf = hasUfSuffix ? lastPart : null;
-  const partnerData = await api.partner.findbyNameAndCity({
+  const partnerData: any | undefined = await api.partner.findbyNameAndCity({
     name: name.replaceAll("-", " "),
     city: cityWithoutUf.replaceAll("-", " "),
     uf: uf || null,
-  });
-
-
+  }) 
   return (
     <main className="relative">
       <PartnerBannerSection />

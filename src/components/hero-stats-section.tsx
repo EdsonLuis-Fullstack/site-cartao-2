@@ -24,17 +24,17 @@ function StatCard({ value, description, variant = "default" }: StatCardProps) {
       {variant === "highlight" ? (
         <>
           <div className="flex flex-col gap-0.5">
-            <p className="text-xs font-bold leading-normal text-start whitespace-nowrap">
+            <p className="leading-normal">
+            <span className="text-[28px] font-semibold">R$1,00</span>
+            <span className="text-sm">/dia</span>
+          </p>
+          </div>
+          <p className="text-xs font-bold leading-normal text-start whitespace-nowrap">
               Qualidade de vida por
             </p>
             <p className="text-xs font-bold leading-normal text-start whitespace-nowrap">
               um pouco mais de
             </p>
-          </div>
-          <p className="leading-normal">
-            <span className="text-[28px] font-semibold">R$1,00</span>
-            <span className="text-sm">/dia</span>
-          </p>
         </>
       ) : (
         <>
@@ -81,7 +81,7 @@ export default function HeroStatsSection({ className }: HeroStatsSectionProps) {
                 <p>nosso cuidado?</p>
               </h1>
 
-              <p className="text-lg font-normal font-['Figtree'] h-[58px] max-w-[429px]">
+              <p className="text-lg font-normal font-['Figtree']  max-w-[429px]">
                 Acreditamos que saúde é direito, não privilégio. Há 15 anos, o
                 Beneficiar existe para transformar realidades e criar caminhos
                 mais justos.

@@ -3,7 +3,8 @@ import { ArrowRight, Globe, MapPin, Phone } from "lucide-react";
 import Image from "next/image";
 import whatsappIcon from "@/assets/whatsapp.svg";
 import creditCardWoman from "../../public/images/credit-card-woman.webp";
-
+import {useEffect} from "react";
+import Link from "next/link";
 interface Partner {
   cod: number;
   nome: string;
@@ -40,15 +41,17 @@ interface Partner {
 }
 
 interface PartnerMainSectionProps {
-  partner: Partner;
+  partner?: Partner;
 }
 
 export default function PartnerMainSection({
   partner,
 }: PartnerMainSectionProps) {
-  if(!partner) {
-    return window.location.href = '/404';
-  }
+  useEffect(() => {
+    if (!partner) {
+      window.location.href = '/404';
+    }
+  }, [partner]);
   const formatWhatsappNumber = (number: string) => {
     const numberWithCountryCode = number.startsWith("+")
       ? number
@@ -132,7 +135,8 @@ export default function PartnerMainSection({
             </div>
 
             {/* Contact Buttons */}
-            <div className="flex items-start gap-[46px] w-[415px]">
+            
+            <div className="flex justify-between gap-10 w-[415px]">
               {partner.whatsapp && (
                 <button
                   className="bg-[#f87315] cursor-pointer rounded-[100px] px-[18px] py-[5px] h-[45px] flex items-center gap-[15px] shrink-0 hover:bg-[#e66a0a] transition-colors"
@@ -217,18 +221,20 @@ export default function PartnerMainSection({
                 Soluções inteligentes em saúde, pensadas para empresas que
                 valorizam pessoas e constroem o futuro com responsabilidade.
               </p>
+              <Link href="https://checkout.cartaobeneficiar.com.br/" >
               <button className="bg-[#61bb5a] cursor-pointer rounded-[100px] w-[308px] px-[29px] py-[14px] flex items-center gap-[15px] shrink-0 hover:bg-[#559954] transition-colors">
                 <span className="font-semibold text-[16px] text-center text-white uppercase leading-normal">
                   Solicitar cartão agora
                 </span>
                 <ArrowRight className="w-[21px] h-[21px] text-white -rotate-45" />
               </button>
+              </Link>
             </div>
           </div>
         </div>
 
         {/* Address and Map Section */}
-        <div className="">
+        <div className="mt-10">
           {/* Address Section */}
           <div className="flex flex-col gap-5 w-[332px]">
             <div className="flex items-center gap-[12px] w-full">
