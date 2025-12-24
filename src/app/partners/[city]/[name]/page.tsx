@@ -7,17 +7,20 @@ import PartnerBannerSection from "@/components/partner-banner-section";
 import { NavBar } from "@/components/shared/navbar";
 import { api } from "@/instances/api";
 import { PartnerDynamicPage } from "../../types";
+import { redirect } from "next/navigation"; // ✅ Importação correta
 
 export async function generateMetadata({
   params,
 }: {
   params: { name: string; city: string };
 }) {
-  const { name, city } = await params;
+  let { name, city } = await params;
 
   const parts = city.split("-");
   const lastPart = parts[parts.length - 1];
-  
+  if(name.includes("#")){
+    name = name.split("#")[0]
+  }
   const hasUfSuffix = lastPart.length === 2;
   
   const cityWithoutUf = hasUfSuffix 
@@ -37,6 +40,14 @@ export async function generateMetadata({
     ?.trim()
     .toLowerCase() || "";
 
+  if(!partnerData){
+    return getMetaData({
+      title: `Parceiro não encontrado | Beneficiar`,
+      description: `Saiba telefone, WhatsApp e endereço do parceiro do Cartão Beneficiar. Consulte nossos parceiros credenciados nas áreas de saúde, odontologia, exames laboratoriais e de imagem com condições especiais para quem tem o cartão.`,
+      url: `/partners/${city}/${name}`,
+      image: "",
+    });
+  }
 
   return getMetaData({
     title: `${partnerData.nome} em ${partnerData.cidade} | Telefone, WhatsApp e endereço`,
@@ -46,16 +57,18 @@ export async function generateMetadata({
   });
 }
 
-
 const Page: NextPage<PartnerDynamicPage> = async ({
   params,
 }: {
   params: Promise<{ name: string, city: string }>;
 }) => {
-  const { name,city } = await params;
+  let { name, city } = await params;
 
   const parts = city.split("-");
   const lastPart = parts[parts.length - 1];
+  if(name.includes("#")){
+    name = name.split("#")[0]
+  }
   
   const hasUfSuffix = lastPart.length === 2;
   
@@ -69,6 +82,11 @@ const Page: NextPage<PartnerDynamicPage> = async ({
     city: cityWithoutUf.replaceAll("-", " "),
     uf: uf || null,
   }) 
+  
+  if(!partnerData){
+    redirect("/404"); // ✅ Uso correto do redirect
+  }
+  
   return (
     <main className="relative">
       <PartnerBannerSection />
@@ -79,4 +97,5 @@ const Page: NextPage<PartnerDynamicPage> = async ({
     </main>
   );
 };
+
 export default Page;

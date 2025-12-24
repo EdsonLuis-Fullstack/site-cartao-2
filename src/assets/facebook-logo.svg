@@ -1,6 +1,6 @@
 <svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="Frame 54">
-<rect x="0.5" y="0.5" width="49" height="49" rx="24.5" stroke="var(--stroke-0, #F87315)"/>
+
 <path id="Shape" fill-rule="evenodd" clip-rule="evenodd" d="M22.1906 35.1896V24.594H20V20.9425H22.1906V18.7502C22.1906 15.7713 23.4276 14 26.942 14H29.8678V17.6519H28.0389C26.6709 17.6519 26.5804 18.1622 26.5804 19.1145L26.5754 20.9421H29.8885L29.5008 24.5936H26.5754V35.1896H22.1906Z" fill="var(--fill-0, #F87315)"/>
 </g>
 </svg>

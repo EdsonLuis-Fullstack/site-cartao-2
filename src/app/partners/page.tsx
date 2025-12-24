@@ -20,28 +20,31 @@ export async function generateMetadata() {
 
 const Page: NextPage = async () => {
   try {
-    
     var citiesData = await api.cities.findAll({});
     var partnersData = await api.partners.findAll({});
     var categoriesData = await api.categories.findAll({});
-    
   } catch (error) {
     console.log("error", error);
-    if(!citiesData){
-      redirect('/404');
+    if (!citiesData) {
+      redirect("/404");
     }
   }
-
 
   return (
     <main className="relative">
       <PartnersBannerSection cities={citiesData} selectedCityName={null} />
       <NavBar />
-      <PartnerClinicSection PartnerData={[]} />
+      <PartnerClinicSection PartnerData={[]} bannerPartners={[]} />
       <OtherPartnersSection
-        partners={partnersData.data}
         categories={categoriesData}
+        initialData={{
+          data: partnersData.data,
+          recordsFiltered: partnersData.recordsFiltered,
+          recordsTotal: partnersData.recordsTotal,
+          draw: 1,
+        }}
       />
+
       <Footer />
       <CopyrightBar />
     </main>

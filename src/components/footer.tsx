@@ -102,12 +102,14 @@ export default function Footer() {
                 href="https://www.facebook.com/cartaobeneficiar"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative w-[50px] h-[50px] hover:scale-105 transition-transform duration-300"
+                className="border border-[#f87315] border-solid rounded-[50px] w-[50px] h-[50px] hover:bg-[#f87315] hover:scale-105 transition-all duration-300 group"
+
+                
                 data-node-id="245:663"
               >
                 <Image
                   alt="Facebook"
-                  className="block w-full h-full object-contain"
+                  className="block w-full h-full object-contain group-hover:brightness-0 group-hover:invert transition-all duration-300"
                   src={imgFrame54}
                   width={50}
                   height={50}

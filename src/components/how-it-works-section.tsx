@@ -112,6 +112,7 @@ const stepsData: Record<number, StepData> = {
         subtitle: "(sem comprometer o limite)",
         image: acceptCard,
         alt: "Cartão aceito",
+        largeImage: true,
       },
     ],
   },

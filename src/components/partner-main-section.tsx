@@ -1,5 +1,5 @@
 "use client";
-import { ArrowRight, Globe, MapPin, Phone } from "lucide-react";
+import { ArrowRight, Globe, MapPin, Phone, Facebook, Instagram } from "lucide-react";
 import Image from "next/image";
 import whatsappIcon from "@/assets/whatsapp.svg";
 import creditCardWoman from "../../public/images/credit-card-woman.webp";
@@ -52,6 +52,7 @@ export default function PartnerMainSection({
       window.location.href = '/404';
     }
   }, [partner]);
+  
   const formatWhatsappNumber = (number: string) => {
     const numberWithCountryCode = number.startsWith("+")
       ? number
@@ -87,9 +88,25 @@ export default function PartnerMainSection({
     return partner.categoria_obj?.nome?.replace(/\s*\/\s*$/, "").trim() || "";
   };
 
+  // Função para detectar tipo de link
+  const getLinkType = (url: string) => {
+    if (!url) return null;
+    
+    const lowerUrl = url.toLowerCase();
+    if (lowerUrl.includes('facebook.com') || lowerUrl.includes('fb.com')) {
+      return 'facebook';
+    }
+    if (lowerUrl.includes('instagram.com')) {
+      return 'instagram';
+    }
+    return 'website';
+  };
+
   const photoUrl = partner.foto
     ? process.env.NEXT_PUBLIC_IMAGE_BASE_URL + partner.foto
     : "";
+
+  const linkType = getLinkType(partner.link);
 
   return (
     <section id="sobre" className="relative w-full min-h-[1468px] py-[81px] px-[319px] font-(family-name:--font-figtree)">
@@ -166,7 +183,7 @@ export default function PartnerMainSection({
 
               {partner.telefone && (
                 <button
-                  className="border cursor-pointer border-[#f87315] border-solid rounded-[100px] px-[18px] py-[5px] h-[45px] flex items-center gap-[15px] shrink-0 hover:bg-[#f87315]/10 transition-colors"
+                  className="border cursor-pointer border-[#f87315] text-[#f87315] border-solid rounded-[100px] px-[18px] py-[5px] h-[45px] flex items-center gap-[15px] shrink-0 hover:bg-[#f87315] hover:text-white transition-colors"
                   onClick={() =>
                     window.open(
                       `tel:${formatWhatsappNumber(partner.telefone)}`,
@@ -174,14 +191,38 @@ export default function PartnerMainSection({
                     )
                   }
                 >
-                  <Phone className="w-[24px] h-[24px] shrink-0 text-[#f87315]" />
-                  <span className="font-medium text-[16px] text-[#f87315] leading-normal">
+                  <Phone className="w-[24px] h-[24px] shrink-0" />
+                  <span className="font-medium text-[16px]  leading-normal">
                     Telefone
                   </span>
                 </button>
               )}
 
-              {partner.link && (
+              {partner.link && linkType === 'facebook' && (
+                <button
+                  className="border border-[#f87315] cursor-pointer rounded-[100px] px-[18px] py-[5px] flex items-center gap-[15px] h-[45px] hover:bg-[#f87315] hover:text-white transition-colors group"
+                  onClick={() => window.open(`${partner.link}`, "_blank")}
+                >
+                  <Facebook className="w-[24px] h-[24px] text-[#f87315] group-hover:text-white" />
+                  <span className="font-(family-name:--font-figtree) font-medium text-[16px] text-[#f87315] leading-normal group-hover:text-white">
+                    Facebook
+                  </span>
+                </button>
+              )}
+
+              {partner.link && linkType === 'instagram' && (
+                <button
+                  className="border border-[#f87315] cursor-pointer rounded-[100px] px-[18px] py-[5px] flex items-center gap-[15px] h-[45px] hover:bg-[#f87315] hover:text-white transition-colors group"
+                  onClick={() => window.open(`${partner.link}`, "_blank")}
+                >
+                  <Instagram className="w-[24px] h-[24px] text-[#f87315] group-hover:text-white" />
+                  <span className="font-(family-name:--font-figtree) font-medium text-[16px] text-[#f87315] leading-normal group-hover:text-white">
+                    Instagram
+                  </span>
+                </button>
+              )}
+
+              {partner.link && linkType === 'website' && (
                 <button
                   className="border border-[#f87315] cursor-pointer rounded-[100px] px-[18px] py-[5px] flex items-center gap-[15px] w-[119px] h-[45px] hover:bg-[#f87315] hover:text-white transition-colors group"
                   onClick={() => window.open(`${partner.link}`, "_blank")}

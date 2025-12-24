@@ -77,7 +77,7 @@ export default function FaqSection() {
               <div
                 key={item.id}
                 onClick={() => toggleExpand(item.id)}
-                className="bg-white rounded-[20px] p-7 cursor-pointer transition-all duration-300 hover:shadow-lg"
+                className="bg-white rounded-[20px] p-7 cursor-pointer h-min transition-all duration-300 hover:shadow-lg"
               >
                 {/* Question row */}
                 <div className="flex items-center gap-6">

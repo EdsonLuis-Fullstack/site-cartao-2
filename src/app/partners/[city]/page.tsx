@@ -106,8 +106,15 @@ const Page: NextPage<PartnerDynamicPage> = async ({
       <NavBar />
       <PartnerClinicSection PartnerData={unitPartners} bannerPartners={bannerPartners} />
       <OtherPartnersSection
-        partners={partnersData.data}
         categories={categoriesData}
+        initialData={{
+          data: partnersData.data,
+          recordsFiltered: partnersData.recordsFiltered,
+          recordsTotal: partnersData.recordsTotal,
+          draw: 1,
+        }}
+        city={cityWithoutUf}
+        uf={uf}
       />
       <Footer />
       <CopyrightBar />

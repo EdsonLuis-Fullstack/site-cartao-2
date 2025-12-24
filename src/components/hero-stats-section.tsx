@@ -119,9 +119,9 @@ export default function HeroStatsSection({ className }: HeroStatsSectionProps) {
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 z-50">
-          <div className="w-[72px] h-[72px] bg-[#61BB5A] rounded-full flex items-end justify-center shadow-lg z-50">
-            <ArrowDown className="size-10 text-white mb-3 z-50 animate-[arrowPulse_4s_ease-in-out_infinite]" />
+        <div className="absolute -bottom-10  left-1/2 -translate-x-1/2 z-50 ">
+          <div className="w-[72px] h-[72px] bg-[#61BB5A]  rounded-full flex items-end justify-center shadow-lg z-50">
+            <ArrowDown className="size-10 text-white mb-3 z-50  animate-[arrowPulse_4s_ease-in-out_infinite]" />
           </div>
         </div>
             <style jsx>{`

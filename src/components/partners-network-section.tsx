@@ -201,7 +201,7 @@ export default function PartnersNetworkSection({
           {/* View all partners button */}
           <div className="flex justify-center mt-12">
             <Link
-          href="http://checkout.cartaobeneficiar.com.br/"
+          href="/partners"
           className="font-semibold leading-normal text-[14px] text-white"
           data-node-id="I295:2280;295:2269"
         >

@@ -6,7 +6,7 @@ export class Categories {
             const response = await axiosInstance.post("categorias/list", {
                 "draw": 1,
                 "start": 0,
-                "length": 10,
+                "length": 150,
                 "sortBy": null,
                 "sortDirection": "ASC",
                 "nome": "",
