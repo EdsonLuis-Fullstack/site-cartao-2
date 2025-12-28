@@ -6,6 +6,7 @@ import Footer from "@/components/footer";
 import CopyrightBar from "@/components/copyright-bar";
 import ContactBannerSection from "@/components/contact-banner-section";
 import { NavBar } from "@/components/shared/navbar";
+import { api } from "@/instances/api";
 
 export async function generateMetadata() {
   return getMetaData({
@@ -16,12 +17,13 @@ export async function generateMetadata() {
   });
 }
 
-const Page: NextPage = () => {
+const Page: NextPage = async () => {
+  const cities = await api.cities.findAllCache({})
   return (
     <main className="relative">
       <ContactBannerSection />
       <NavBar />
-      <ContactFormSection />
+      <ContactFormSection Cities={cities} />
       <FaqSection />
       <Footer />
       <CopyrightBar />

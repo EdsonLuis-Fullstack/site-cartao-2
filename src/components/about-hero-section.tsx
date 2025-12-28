@@ -13,7 +13,7 @@ export default function AboutHeroSection() {
       data-node-id="170:370"
     >
       <div
-        className="flex items-start gap-0 max-w-[1296px] mx-auto "
+        className="flex items-start gap-0 max-w-[1274px] mx-auto "
         data-node-id="199:327"
       >
         {/* Images Section - Left Side */}

@@ -30,9 +30,7 @@ function StatCard({ value, description, variant = "default" }: StatCardProps) {
           </p>
           </div>
           <p className="text-xs font-bold leading-normal text-start whitespace-nowrap">
-              Qualidade de vida por
-            </p>
-            <p className="text-xs font-bold leading-normal text-start whitespace-nowrap">
+              Qualidade de vida por<br />
               um pouco mais de
             </p>
         </>

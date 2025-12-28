@@ -61,7 +61,7 @@ function PartnerCard({ partner }: PartnerCardProps) {
   };
 
   return (
-    <div className="bg-white rounded-[8px] px-[22px] py-[16px] w-full max-w-[330px] flex flex-col gap-[16px] overflow-hidden">
+    <div className="bg-white rounded-[8px] px-[22px] py-[16px] w-full  flex flex-col gap-[16px] overflow-hidden justify-between">
       <div className="flex flex-col gap-[8px] w-full">
         <div className="h-[100px] relative w-full">
           <div className="absolute left-0 top-0 w-[100px] h-[100px] bg-[#434343] rounded-[100px] overflow-hidden">
@@ -334,7 +334,7 @@ export default function OtherPartnersSection({
 
   return (
     <section className="bg-[#f3f2f2] w-full py-[72px] ">
-      <div className=" flex justify-center ml-[314px]">
+      <div className=" flex justify-center ">
         <div className="flex flex-col items-center w-full  max-w-[1292px]">
           <div className="w-full">
             <h1 className="font-normal text-[48px] text-[#f87315] leading-normal mb-[80px] self-start ">
@@ -408,7 +408,7 @@ export default function OtherPartnersSection({
                 <p className="text-gray-500 text-lg">Carregando parceiros...</p>
               </div>
             ) : partners.length > 0 ? (
-              <div className="grid grid-cols-3 gap-y-[32px]">
+              <div className="grid grid-cols-3 gap-y-[32px] gap-15 justify-items-center">
                 {partners.map((partner: Partner) => (
                   <PartnerCard key={partner.cod} partner={partner} />
                 ))}

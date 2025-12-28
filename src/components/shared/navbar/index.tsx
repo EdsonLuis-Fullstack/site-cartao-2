@@ -47,7 +47,7 @@ export const NavBar = () => {
 
   return (
     <div
-      className="absolute h-[105px] left-1/2 transform font-(family-name:--font-poppins) z-20 font-medium -translate-x-1/2 rounded-[66px] top-[47px] w-[1274px] max-w-[calc(100vw-48px)]"
+      className="absolute h-[105px] left-1/2 transform font-(family-name:--font-poppins) z-20 font-medium -translate-x-1/2 rounded-[66px] top-[47px] max-w-[1274px] w-full"
       data-name="Menu"
       data-node-id="295:2280"
     >

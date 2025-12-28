@@ -105,17 +105,7 @@ export default function HowToStartSection() {
         </div>
       </div>
 
-      {/* CTA Button */}
-      <div className="flex justify-center mt-20">
-         <Link href="/contact">
-        <button className="bg-[#3a3b47] cursor-pointer px-[60px] py-3.5 rounded-[100px] flex items-center gap-[15px] hover:bg-[#2a2b35] transition-colors">
-          <span className="font-semibold text-[16px] text-white uppercase leading-normal tracking-tight">
-            Falar com um consultor
-          </span>
-          <ArrowRight className="w-6 h-6 text-white -rotate-45" />
-        </button>
-        </Link>
-      </div>
+      
     </section>
   );
 }

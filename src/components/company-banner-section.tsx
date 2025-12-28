@@ -5,14 +5,11 @@ import bannerCompany from "../../public/images/banner-company.webp";
 export default function CompanyBannerSection() {
   return (
     <div
-      className="h-[780px] overflow-hidden relative font-(family-name:--font-livvic) rounded-bl-[80px] rounded-br-[80px] w-full"
+      className="relative h-[780px] overflow-hidden font-(family-name:--font-livvic) rounded-bl-[80px] rounded-br-[80px] w-full"
       data-name="Header"
     >
-      <div
-        className="absolute h-[837px] w-full"
-        data-name="Capa Home 4"
-        data-node-id="123:910"
-      >
+      {/* Background */}
+      <div className="absolute inset-0">
         <Image
           alt=""
           className="absolute inset-0 w-full h-full object-cover pointer-events-none"
@@ -21,10 +18,9 @@ export default function CompanyBannerSection() {
           height={837}
           priority
         />
-        {/* Overlay suave para melhor contraste */}
-        <div
-          className="absolute inset-0 bg-black/15"
-        />
+
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/15" />
         <div
           className="absolute inset-0"
           style={{
@@ -34,27 +30,31 @@ export default function CompanyBannerSection() {
         />
       </div>
 
-      <div
-        className="absolute flex flex-col gap-[5px] items-start left-4 md:left-[322px] top-[120px] md:top-60 px-4 md:px-0 max-w-[calc(100%-2rem)] md:max-w-none"
-        data-node-id="123:915"
-      >
+      {/* CONTAINER IGUAL AO DA NAVBAR */}
+      <div className="relative h-full w-[1274px] max-w-[calc(100vw-48px)] mx-auto">
+        {/* Conteúdo */}
         <div
-          className="font-normal leading-8 md:leading-16 text-[32px] md:text-[48px] text-white w-full md:w-[589px] whitespace-pre-wrap"
-          data-node-id="123:916"
+          className="absolute flex flex-col gap-[5px] items-start top-[120px] md:top-60"
+          data-node-id="123:915"
         >
-          <p className="mb-0">
-            <span className=" tracking-tight font-medium text-white">
-              Saúde acessível para sua equipe. Valor real para <br /> sua empresa.
-            </span>
-            <span className="font-normal"> </span>
+          <div
+            className="font-normal leading-8 md:leading-16 text-[32px] md:text-[48px] text-white w-full md:w-[589px] whitespace-pre-wrap"
+            data-node-id="123:916"
+          >
+            <p className="mb-0">
+              <span className="tracking-tight font-medium text-white">
+                Saúde acessível para sua equipe. Valor real para<br />sua empresa.
+              </span>
+            </p>
+          </div>
+
+          <p
+            className="font-bold leading-[1.9] text-[16px] md:text-[20px] font-(family-name:--font-figtree) text-white whitespace-pre-wrap drop-shadow-sm"
+            data-node-id="123:917"
+          >
+            Sem carência. Família incluída. Preços que cabem no bolso.
           </p>
         </div>
-        <p
-          className="font-bold leading-[1.9] text-[16px] font-(family-name:--font-figtree) md:text-[20px] text-white w-full whitespace-pre-wrap drop-shadow-sm"
-          data-node-id="123:917"
-        >
-          Sem carência. Família incluída. Preços que cabem no bolso.
-        </p>
       </div>
     </div>
   );

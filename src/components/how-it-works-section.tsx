@@ -24,6 +24,8 @@ interface StepData {
     image: StaticImageData | string;
     alt: string;
     largeImage?: boolean;
+    smallImage?: boolean;
+    extraLargeImage?: boolean;
   }[];
 }
 
@@ -58,6 +60,7 @@ const stepsData: Record<number, StepData> = {
         image: creditCard,
         alt: "Cartão de crédito",
         largeImage: false,
+        smallImage: true,
       },
       {
         id: 3,
@@ -87,6 +90,7 @@ const stepsData: Record<number, StepData> = {
         image: ticket,
         alt: "Ticket de benefício",
         largeImage: true,
+        extraLargeImage: true,
       },
     ],
   },
@@ -158,11 +162,16 @@ function StepItemCard({
   item: StepData["items"][number];
   currentStep: number;
 }) {
-  const imageSize = item.largeImage 
+  const imageSize = item.extraLargeImage
+    ? { width: "w-[280px]", height: "h-[190px]", sizes: "280px" }
+    : item.smallImage
+    ? { width: "w-[140px]", height: "h-[95px]", sizes: "140px" }
+    : item.largeImage 
     ? { width: "w-[220px]", height: "h-[150px]", sizes: "220px" }
     : { width: "w-[180px]", height: "h-[120px]", sizes: "180px" };
 
   const isStep4 = currentStep === 4;
+  const isCreditCard = item.smallImage;
 
   return (
     <div className="border border-[#61bb5a] rounded-2xl w-[260px] h-[240px] bg-white hover:shadow-lg transition-all duration-300 hover:border-[#f87315] cursor-pointer flex flex-col items-center">
@@ -178,7 +187,7 @@ function StepItemCard({
 
       {/* Image */}
       <div className={cn(
-        isStep4 ? "flex items-center justify-center flex-1" : "mt-auto mb-4"
+        isStep4 || isCreditCard ? "flex items-center justify-center flex-1" : "mt-auto mb-4"
       )}>
         <div className={cn("relative", imageSize.width, imageSize.height)}>
           <Image

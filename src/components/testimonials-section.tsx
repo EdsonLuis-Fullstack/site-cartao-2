@@ -124,10 +124,10 @@ function TestimonialCard({ testimonial }: TestimonialCardProps) {
       {/* Quote section */}
       <div className="flex flex-col gap-6 flex-1 px-9">
         {/* Quote icon */}
-        <div className="w-11 h-[27px]">
+        <div className="w-full flex justify-start h-[20px]">
           <div
             className={cn(
-              "text-4xl font-bold leading-none",
+              "text-4xl font-bold leading-none rotate-180",
               isOrange ? "text-white" : "text-[#f87315]"
             )}
           >
@@ -144,7 +144,18 @@ function TestimonialCard({ testimonial }: TestimonialCardProps) {
         >
           {testimonial.quote}
         </p>
+          <div className="w-full flex justify-end h-[20px]">
+          <div
+            className={cn(
+              "text-4xl font-bold leading-none",
+              isOrange ? "text-white" : "text-[#f87315]"
+            )}
+          >
+            <Quote fill={isOrange ? "white" : "#f87315"} />
+          </div>
+        </div>
       </div>
+      
 
       {/* Divider line */}
       <div

@@ -30,7 +30,7 @@ interface ServiceCard {
 const services: ServiceCard[] = [
   {
     id: "1",
-    title: "Consultas Médicas",
+    title: "Consultas com especialistas",
     description: "Clínico geral gratuito e especialistasa partir de R$ 25.",
     image: medical,
     bgColor: "green",

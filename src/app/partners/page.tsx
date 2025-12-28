@@ -20,9 +20,12 @@ export async function generateMetadata() {
 
 const Page: NextPage = async () => {
   try {
-    var citiesData = await api.cities.findAll({});
-    var partnersData = await api.partners.findAll({});
-    var categoriesData = await api.categories.findAll({});
+    var [citiesData, partnersData, categoriesData] = await Promise.all([
+      api.cities.findAll({}),
+      api.partners.findAll({}),
+      api.categories.findAll({}),
+    ]);
+  
   } catch (error) {
     console.log("error", error);
     if (!citiesData) {

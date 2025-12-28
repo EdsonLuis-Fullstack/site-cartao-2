@@ -89,14 +89,13 @@ export default function PartnerClinicSection({PartnerData, bannerPartners}: {Par
   };
 
   return (
-    <section className="bg-white relative w-full min-h-screen py-28 font-(family-name:--font-figtree)">
-      <div className="flex justify-start pl-[313px] pb-[70px]">
+    <section className="bg-white relative flex flex-col gap-15 items-center w-full min-h-screen py-28 font-(family-name:--font-figtree)">
+      <div className="flex w-full justify-start max-w-[1274px] ">
         <h1 className="font-normal text-[48px] text-[#f87315] leading-normal">
           Clínica Parceira
         </h1>
       </div>
-
-      <div className="flex gap-[78px] pl-[313px] pr-20">
+      <div className="flex gap-[78px] max-w-[1274px]">
         <div className="w-[542px] flex flex-col gap-5">
           <div className="flex gap-[46px] items-center w-full">
             <div
@@ -230,7 +229,8 @@ export default function PartnerClinicSection({PartnerData, bannerPartners}: {Par
             />
         </div>
       </div>
-        <div className="flex justify-start pl-[313px] mt-[120px]">
+
+        <div className="flex justify-start ">
           <iframe
             src={getGoogleMapsEmbedUrl()}
             width="1280"

@@ -5,6 +5,7 @@ import whatsappIcon from "@/assets/whatsapp.svg";
 import creditCardWoman from "../../public/images/credit-card-woman.webp";
 import {useEffect} from "react";
 import Link from "next/link";
+
 interface Partner {
   cod: number;
   nome: string;
@@ -109,13 +110,13 @@ export default function PartnerMainSection({
   const linkType = getLinkType(partner.link);
 
   return (
-    <section id="sobre" className="relative w-full min-h-[1468px] py-[81px] px-[319px] font-(family-name:--font-figtree)">
+    <section id="sobre" className="relative w-full min-h-screen lg:min-h-[1468px] py-8 md:py-12 lg:py-[81px] px-4 md:px-8 lg:px-[319px] font-(family-name:--font-figtree) overflow-hidden">
       <div className="w-full max-w-[1282px] mx-auto">
-        <div className="grid grid-cols-[628px_1fr] gap-[74px] items-start">
-          <div className="flex flex-col gap-[30px]">
-            <div className="flex items-center gap-[46px] w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-[628px_1fr] gap-8 lg:gap-[74px] items-start">
+          <div className="flex flex-col gap-[30px] w-full">
+            <div className="flex items-center gap-4 md:gap-8 lg:gap-[46px] w-full">
               <div
-                className="w-[120px] h-[120px] rounded-[17px] overflow-hidden shrink-0"
+                className="w-20 h-20 md:w-28 md:h-28 lg:w-[120px] lg:h-[120px] rounded-[17px] overflow-hidden shrink-0"
                 style={{ boxShadow: "0 0 11px -3px rgba(0, 0, 0, 0.25)" }}
               >
                 <Image
@@ -126,22 +127,22 @@ export default function PartnerMainSection({
                   className="w-full h-full object-cover"
                 />
               </div>
-              <h1 className="flex-1 font-medium text-[32px] text-black leading-normal min-h-px min-w-px whitespace-normal">
+              <h1 className="flex-1 font-medium text-xl md:text-2xl lg:text-[32px] text-black leading-normal min-h-px min-w-px whitespace-normal">
                 {partner.nome}
               </h1>
             </div>
 
             <div>
-              <span className="text-[#F87315] font-figtree text-[18px] font-normal leading-normal">
+              <span className="text-[#F87315] font-figtree text-base md:text-lg lg:text-[18px] font-normal leading-normal">
                 {getCategoryName()}
               </span>
             </div>
 
-            <div className="flex flex-col gap-[46px] text-black w-full leading-normal whitespace-pre-wrap">
-              <h2 className="font-semibold text-[24px] w-full">
+            <div className="flex flex-col gap-6 md:gap-8 lg:gap-[46px] text-black w-full leading-normal whitespace-pre-wrap">
+              <h2 className="font-semibold text-xl md:text-2xl lg:text-[24px] w-full">
                   Sobre o parceiro
               </h2>
-                <p className="font-normal text-[18px] w-full leading-relaxed">
+                <p className="font-normal text-base md:text-lg lg:text-[18px] w-full leading-relaxed">
                 {partner.nome} atua em {partner.cidade} – SP, nas áreas de {getCategoryName()}, e faz parte da rede de parceiros do Cartão Beneficiar, que não é convênio médico ou plano de saúde, mas sim um cartão de benefícios em consultas médicas e odontológicas, com descontos em exames na cidade de {partner.cidade}.
                 <br />
                 <br />
@@ -153,7 +154,7 @@ export default function PartnerMainSection({
 
             {/* Contact Buttons */}
             
-            <div className="flex justify-between gap-10 w-[415px]">
+            <div className="flex flex-wrap justify-start gap-4 lg:gap-10 w-full lg:w-[415px]">
               {partner.whatsapp && (
                 <button
                   className="bg-[#f87315] cursor-pointer rounded-[100px] px-[18px] py-[5px] h-[45px] flex items-center gap-[15px] shrink-0 hover:bg-[#e66a0a] transition-colors"
@@ -237,7 +238,7 @@ export default function PartnerMainSection({
           </div>
 
           {/* Right Column - Call to Action Card */}
-          <div className="w-[550px] h-[791px] rounded-[20px] overflow-hidden relative ml-auto">
+          <div className="w-full lg:w-[550px] h-[600px] lg:h-[791px] rounded-[20px] overflow-hidden relative lg:ml-auto">
             {/* Background Image with Gradient */}
             <div className="absolute inset-0">
               <div className="relative w-full h-full">
@@ -254,16 +255,16 @@ export default function PartnerMainSection({
             </div>
 
             {/* Content */}
-            <div className="relative z-10 pt-[63px] pl-[56px] w-[470px] flex flex-col gap-[24px]">
-              <h2 className="font-medium text-[48px] leading-[58px] text-white min-w-full w-min whitespace-pre-wrap">
+            <div className="relative z-10 pt-8 lg:pt-[63px] pl-6 lg:pl-[56px] w-full lg:w-[470px] flex flex-col gap-[24px]">
+              <h2 className="font-medium text-3xl lg:text-[48px] leading-tight lg:leading-[58px] text-white whitespace-pre-wrap">
                 Cuidando de quem cuida do Brasil
               </h2>
-              <p className="font-normal text-[18px] text-white w-[429px] leading-normal whitespace-pre-wrap">
+              <p className="font-normal text-base lg:text-[18px] text-white w-full lg:w-[429px] leading-normal whitespace-pre-wrap">
                 Soluções inteligentes em saúde, pensadas para empresas que
                 valorizam pessoas e constroem o futuro com responsabilidade.
               </p>
               <Link href="https://checkout.cartaobeneficiar.com.br/" >
-              <button className="bg-[#61bb5a] cursor-pointer rounded-[100px] w-[308px] px-[29px] py-[14px] flex items-center gap-[15px] shrink-0 hover:bg-[#559954] transition-colors">
+              <button className="bg-[#61bb5a] cursor-pointer rounded-[100px] w-full sm:w-[308px] px-[29px] py-[14px] flex items-center justify-center gap-[15px] shrink-0 hover:bg-[#559954] transition-colors">
                 <span className="font-semibold text-[16px] text-center text-white uppercase leading-normal">
                   Solicitar cartão agora
                 </span>
@@ -275,37 +276,37 @@ export default function PartnerMainSection({
         </div>
 
         {/* Address and Map Section */}
-        <div className="mt-10">
+        <div className="mt-6 md:mt-8 lg:mt-10 w-full -mx-4 md:-mx-8 lg:mx-0 px-4 md:px-8 lg:px-0">
           {/* Address Section */}
-          <div className="flex flex-col gap-5 w-[332px]">
-            <div className="flex items-center gap-[12px] w-full">
-              <div className="bg-[#f87315] rounded-[50px] w-[39px] h-[39px] overflow-hidden shrink-0 relative">
-                <div className="absolute left-[8px] top-[8px] w-[24px] h-[24px]">
+          <div className="flex flex-col gap-4 md:gap-5 w-full max-w-[332px]">
+            <div className="flex items-center gap-3 md:gap-[12px] w-full">
+              <div className="bg-[#f87315] rounded-[50px] w-[35px] h-[35px] md:w-[39px] md:h-[39px] overflow-hidden shrink-0 relative">
+                <div className="absolute left-[6px] top-[6px] md:left-[8px] md:top-[8px] w-[20px] h-[20px] md:w-[24px] md:h-[24px]">
                   <MapPin className="w-full h-full text-white" />
                 </div>
               </div>
-              <h3 className="font-semibold text-[24px] mt-3 text-black leading-normal w-[281px] whitespace-pre-wrap shrink-0">
+              <h3 className="font-semibold text-lg md:text-xl lg:text-[24px] text-black leading-normal whitespace-pre-wrap shrink-0">
                 {partner.clinica_parceira
                   ? "Endereço da clínica"
                   : "Endereço do parceiro"}
               </h3>
             </div>
-            <p className="font-normal text-[18px] text-black leading-normal w-full whitespace-pre-wrap shrink-0">
+            <p className="font-normal text-sm md:text-base lg:text-[18px] text-black leading-normal w-full whitespace-pre-wrap shrink-0">
               {getFullAddress()}
             </p>
           </div>
 
-          {/* Map Section */}
-          <div className="flex justify-start mt-[40px]">
-            <iframe
-              src={`https://maps.google.com/maps?q=${encodeURIComponent(
-                getFullAddress()
-              )}&output=embed`}
-              width="1280"
-              height="450"
-              loading="lazy"
-              className="rounded-xl"
-            ></iframe>
+          {/* Map Section - Alinhado com a largura total das seções acima */}
+          <div className="mt-6 md:mt-8 lg:mt-[40px] w-full max-w-full">
+            <div className="w-full h-[300px] md:h-[400px] lg:h-[450px] rounded-xl overflow-hidden">
+              <iframe
+                src={`https://maps.google.com/maps?q=${encodeURIComponent(
+                  getFullAddress()
+                )}&output=embed`}
+                className="w-full h-full border-0"
+                loading="lazy"
+              ></iframe>
+            </div>
           </div>
         </div>
       </div>

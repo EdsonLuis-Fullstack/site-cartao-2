@@ -2,10 +2,15 @@
 
 import { api } from "@/instances/api";
 
-export async function handlePagination(start: number, city: any,uf :string | null, tipo:string) {
+export async function handlePagination(
+  start: number,
+  city: any,
+  uf: string | null,
+  tipo: string
+) {
   var data;
 
-  switch(tipo){
+  switch (tipo) {
     case "partners":
       data = await api.partners.findAll({ start });
       break;
@@ -19,8 +24,8 @@ export async function handlePagination(start: number, city: any,uf :string | nul
   }
   return data;
 }
-      
-export async function handleSubcategoryes(code:number) {
+
+export async function handleSubcategoryes(code: number) {
   try {
     const data = await api.subcategories.findByCode({ codCategoria: code });
     return data;
@@ -29,9 +34,14 @@ export async function handleSubcategoryes(code:number) {
   }
 }
 
-export async function handlePartnersCategory(codeCategory: number, codeSubcategory: number | null, start?: number,city?:string | null, uf?:string | null) {
+export async function handlePartnersCategory(
+  codeCategory: number,
+  codeSubcategory: number | null,
+  start?: number,
+  city?: string | null,
+  uf?: string | null
+) {
   try {
-
     const data = await api.partners.findByCategorySubCategory({
       city: city || null,
       uf: uf || null,
@@ -44,4 +54,31 @@ export async function handlePartnersCategory(codeCategory: number, codeSubcatego
     console.error("Error fetching partners by category:", error);
   }
 }
-      
+
+export async function handleRequestsCity() {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/cidades/list`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          draw: 1,
+          start: 0,
+          length: 120,
+          sortBy: "cidade",
+          sortDirection: "ASC",
+          filterOnlyExist: "P",
+        }),
+        cache: "force-cache",
+        next: { revalidate: 3600 },
+      }
+    );
+    return await response.json()
+  } catch (error) {
+    console.error("Error fetching cities:", error);
+  }
+}

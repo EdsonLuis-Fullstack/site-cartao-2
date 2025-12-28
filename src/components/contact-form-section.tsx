@@ -7,11 +7,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import greenEllipse from "@/assets/ellipse-verde.svg";
 import orangeEllipse from "@/assets/ellipse-laranja.svg";
-import { ArrowRight, Check, ChevronDown, Loader2 } from "lucide-react";
+import { ArrowRight, Check, ChevronDown, Loader2, AlertCircle } from "lucide-react";
 import line11 from "@/assets/line-11.svg";
 import line12 from "@/assets/line-12.svg";
 import line13 from "@/assets/line-13.svg";
-import { BeneficiarApi } from "@/services/index.ts";
 import { api } from "@/instances/api";
 
 // Zod Schema
@@ -32,10 +31,11 @@ const contactFormSchema = z.object({
 
 type ContactFormData = z.infer<typeof contactFormSchema>;
 
-export default function ContactFormSection() {
+export default function ContactFormSection({Cities}: {Cities?: any[]}) {
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const {
     register,
@@ -68,8 +68,10 @@ export default function ContactFormSection() {
   ];
 
   const onSubmit = async (data: ContactFormData) => {
+    console.log("Form submitted with data:", data); // Debug
     setIsLoading(true);
     setIsSuccess(false);
+    setErrorMessage(null);
 
     try {
       const response = await api.contact.sendContact({
@@ -85,23 +87,34 @@ export default function ContactFormSection() {
 
       // Se o backend retornar true
       if (response === true || response === "true") {
-        setIsLoading(false);
-        setIsSuccess(true);
-
-        // Resetar o formulário após 3 segundos
+        // Manter loading por mais tempo para transição suave
         setTimeout(() => {
-          setIsSuccess(false);
-          reset();
-        }, 3000);
+          setIsLoading(false);
+          setIsSuccess(true);
+
+          // Resetar o formulário após 3 segundos mostrando sucesso
+          setTimeout(() => {
+            setIsSuccess(false);
+            reset();
+          }, 3000);
+        }, 500); // Pequeno delay para suavizar transição
+      } else {
+        throw new Error("Resposta inesperada do servidor");
       }
     } catch (error) {
       setIsLoading(false);
       console.error("Erro ao enviar formulário:", error);
+      setErrorMessage("Erro ao enviar formulário. Tente novamente.");
+      
+      // Limpar mensagem de erro após 5 segundos
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
     }
   };
 
   const handleHelpTypeChange = (value: string) => {
-    setValue("helpType", value);
+    setValue("helpType", value, { shouldValidate: true });
   };
 
   const formatPhone = (value: string) => {
@@ -125,56 +138,56 @@ export default function ContactFormSection() {
 
   return (
     <section className="bg-white relative w-full min-h-screen overflow-hidden flex items-center justify-center py-10">
-      <style jsx>{`
+      <style jsx global>{`
         @keyframes fadeIn {
           from {
             opacity: 0;
-            transform: translateY(-10px);
+            transform: scale(0.8);
           }
           to {
             opacity: 1;
-            transform: translateY(0);
+            transform: scale(1);
           }
         }
 
         @keyframes spin {
-          from {
+          0% {
             transform: rotate(0deg);
           }
-          to {
+          100% {
             transform: rotate(360deg);
           }
         }
 
         @keyframes checkPop {
           0% {
-            transform: scale(0) rotate(-45deg);
+            transform: scale(0);
             opacity: 0;
           }
           50% {
-            transform: scale(1.2) rotate(-45deg);
+            transform: scale(1.3);
           }
           100% {
-            transform: scale(1) rotate(-45deg);
+            transform: scale(1);
             opacity: 1;
           }
         }
 
         .fade-in {
-          animation: fadeIn 0.4s ease-out;
+          animation: fadeIn 0.4s ease-out forwards;
         }
 
         .spinner {
-          animation: spin 1s linear infinite;
+          animation: spin 1s linear infinite !important;
         }
 
         .check-icon {
-          animation: checkPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+          animation: checkPop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
         }
 
         .success-bg {
-          background-color: #61bb5a;
-          transition: background-color 0.3s ease;
+          background-color: #61bb5a !important;
+          transition: background-color 0.5s ease-in-out;
         }
       `}</style>
 
@@ -201,7 +214,10 @@ export default function ContactFormSection() {
                 <div className="absolute left-0 bottom-0 w-[406px] h-0.5 bg-[#f87315]" />
               )}
               {errors.firstName && (
-                <div className="absolute left-0 bottom-0 w-[406px] h-0.5 bg-red-500" />
+                <>
+                  <div className="absolute left-0 bottom-0 w-[406px] h-0.5 bg-red-500" />
+                  <p className="absolute left-0 -bottom-6 text-red-500 text-sm">{errors.firstName.message}</p>
+                </>
               )}
             </div>
 
@@ -225,7 +241,10 @@ export default function ContactFormSection() {
                 <div className="absolute left-0 bottom-0 w-[406px] h-0.5 bg-[#f87315]" />
               )}
               {errors.lastName && (
-                <div className="absolute left-0 bottom-0 w-[406px] h-0.5 bg-red-500" />
+                <>
+                  <div className="absolute left-0 bottom-0 w-[406px] h-0.5 bg-red-500" />
+                  <p className="absolute left-0 -bottom-6 text-red-500 text-sm">{errors.lastName.message}</p>
+                </>
               )}
             </div>
 
@@ -255,7 +274,10 @@ export default function ContactFormSection() {
                 <div className="absolute left-0 bottom-0 w-[406px] h-0.5 bg-[#f87315]" />
               )}
               {errors.phone && (
-                <div className="absolute left-0 bottom-0 w-[406px] h-0.5 bg-red-500" />
+                <>
+                  <div className="absolute left-0 bottom-0 w-[406px] h-0.5 bg-red-500" />
+                  <p className="absolute left-0 -bottom-6 text-red-500 text-sm">{errors.phone.message}</p>
+                </>
               )}
             </div>
 
@@ -279,7 +301,10 @@ export default function ContactFormSection() {
                 <div className="absolute left-0 bottom-0 w-[406px] h-0.5 bg-[#f87315]" />
               )}
               {errors.email && (
-                <div className="absolute left-0 bottom-0 w-[406px] h-0.5 bg-red-500" />
+                <>
+                  <div className="absolute left-0 bottom-0 w-[406px] h-0.5 bg-red-500" />
+                  <p className="absolute left-0 -bottom-6 text-red-500 text-sm">{errors.email.message}</p>
+                </>
               )}
             </div>
 
@@ -308,7 +333,10 @@ export default function ContactFormSection() {
               )}
               <ChevronDown className="absolute right-3 top-2/3 transform -translate-y-1/2 w-[24px] h-[24px] text-[#61bb5a] pointer-events-none" />
               {errors.city && (
-                <div className="absolute left-0 bottom-0 w-[832px] h-0.5 bg-red-500" />
+                <>
+                  <div className="absolute left-0 bottom-0 w-[832px] h-0.5 bg-red-500" />
+                  <p className="absolute left-0 -bottom-6 text-red-500 text-sm">{errors.city.message}</p>
+                </>
               )}
             </div>
 
@@ -316,6 +344,7 @@ export default function ContactFormSection() {
               <h3 className="font-medium text-[24px] text-[#61bb5a] leading-normal">
                 Como podemos te ajudar?
               </h3>
+              <input type="hidden" {...register("helpType")} />
               <div className="flex flex-wrap gap-[17px]">
                 {helpOptions.map((option, index) => {
                   const getWidth = (index: number) => {
@@ -364,6 +393,9 @@ export default function ContactFormSection() {
                   );
                 })}
               </div>
+              {errors.helpType && (
+                <p className="text-red-500 text-sm -mt-8">{errors.helpType.message}</p>
+              )}
             </div>
 
             <div className="w-[860px] h-[77px] relative">
@@ -386,10 +418,20 @@ export default function ContactFormSection() {
                 <div className="absolute left-0 bottom-0 w-[860px] h-0.5 bg-[#f87315]" />
               )}
               {errors.message && (
-                <div className="absolute left-0 bottom-0 w-[860px] h-0.5 bg-red-500" />
+                <>
+                  <div className="absolute left-0 bottom-0 w-[860px] h-0.5 bg-red-500" />
+                  <p className="absolute left-0 -bottom-6 text-red-500 text-sm">{errors.message.message}</p>
+                </>
               )}
             </div>
           </div>
+
+          {errorMessage && (
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4 flex items-center gap-2">
+              <AlertCircle className="w-5 h-5 text-red-500" />
+              <p className="text-red-700">{errorMessage}</p>
+            </div>
+          )}
 
           <p className="font-normal text-[18px] text-black text-center leading-normal mb-[30px] w-[458px] mx-auto">
             O Beneficiar garante a privacidade e segurança dos seus dados{" "}
@@ -408,7 +450,7 @@ export default function ContactFormSection() {
             <button
               type="submit"
               disabled={isLoading || isSuccess}
-              className={`px-[18px] py-[5px] rounded-[100px] flex items-center justify-center gap-[15px] h-[45px] transition-all duration-300 ${
+              className={`px-[18px] py-[5px] rounded-[100px] flex items-center justify-center gap-[15px] h-[45px] transition-all duration-500 ease-in-out ${
                 isSuccess
                   ? "success-bg"
                   : "bg-[#f87315] hover:bg-[#e66a0a]"
@@ -418,7 +460,7 @@ export default function ContactFormSection() {
             >
               {isLoading && (
                 <>
-                  <Loader2 className="w-[21px] h-[21px] text-white spinner" />
+                  <Loader2 className="w-[21px] h-[21px] text-white animate-spin" />
                   <span className="font-medium text-[16px] text-white uppercase leading-normal">
                     Enviando...
                   </span>

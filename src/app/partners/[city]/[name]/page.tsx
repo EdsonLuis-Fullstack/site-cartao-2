@@ -77,15 +77,18 @@ const Page: NextPage<PartnerDynamicPage> = async ({
     : city;
   
   const uf = hasUfSuffix ? lastPart : null;
+  console.log("cityWithoutUf", cityWithoutUf);
+  console.log("uf", uf);
   const partnerData: any | undefined = await api.partner.findbyNameAndCity({
     name: name.replaceAll("-", " "),
     city: cityWithoutUf.replaceAll("-", " "),
     uf: uf || null,
   }) 
+  console.log("partnerData", name.replaceAll("-", " "));
   
-  if(!partnerData){
-    redirect("/404"); // ✅ Uso correto do redirect
-  }
+  // if(!partnerData){
+  //   redirect("/404"); // ✅ Uso correto do redirect
+  // }
   
   return (
     <main className="relative">
