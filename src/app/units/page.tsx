@@ -17,7 +17,7 @@ export async function generateMetadata() {
 }
 
 const Page: NextPage = async () => {
-  const citiesData = await api.cities.findAllPartners({});
+  const citiesData = await api.cities.findAllCache({});
 
 
   return (

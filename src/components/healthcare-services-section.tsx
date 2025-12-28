@@ -260,21 +260,6 @@ export default function HealthcareServicesSection() {
             </div>
           </div>
         </div>
-
-        {/* CTA Button */}
-        <div className="text-center">
-          <Link
-          href="/partners"
-          data-node-id="245:675"
-                  >      
-          <button className="bg-[#3a3b47] cursor-pointer rounded-full px-[60px] py-[14px] flex items-center gap-[15px] mx-auto hover:bg-[#2a2b37] transition-colors">
-            <span className="font-Figtree font-semibold text-[16px] text-white uppercase leading-normal">
-              CONHEÇA MAIS
-            </span>
-            <ArrowRight className="w-5 h-5 text-white -rotate-45" />
-          </button>
-          </Link>
-        </div>
       </div>
     </section>
   );

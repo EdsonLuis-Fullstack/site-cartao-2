@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -31,11 +31,20 @@ const contactFormSchema = z.object({
 
 type ContactFormData = z.infer<typeof contactFormSchema>;
 
-export default function ContactFormSection({Cities}: {Cities?: any[]}) {
+interface City {
+  id: number;
+  name: string;
+  uf: string;
+}
+
+export default function ContactFormSection({Cities}: {Cities?: City[]}) {
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [cityDropdownOpen, setCityDropdownOpen] = useState(false);
+  const [selectedCity, setSelectedCity] = useState<City | null>(null);
+  const cityDropdownRef = useRef<HTMLDivElement>(null);
 
   const {
     register,
@@ -67,8 +76,18 @@ export default function ContactFormSection({Cities}: {Cities?: any[]}) {
     { id: "ouvidoria", label: "Ouvidoria" },
   ];
 
+  // Fechar dropdown ao clicar fora
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (cityDropdownRef.current && !cityDropdownRef.current.contains(e.target as Node)) {
+        setCityDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
   const onSubmit = async (data: ContactFormData) => {
-    console.log("Form submitted with data:", data); // Debug
     setIsLoading(true);
     setIsSuccess(false);
     setErrorMessage(null);
@@ -84,20 +103,17 @@ export default function ContactFormSection({Cities}: {Cities?: any[]}) {
         message: data.message,
       });
 
-
-      // Se o backend retornar true
       if (response === true || response === "true") {
-        // Manter loading por mais tempo para transição suave
         setTimeout(() => {
           setIsLoading(false);
           setIsSuccess(true);
 
-          // Resetar o formulário após 3 segundos mostrando sucesso
           setTimeout(() => {
             setIsSuccess(false);
+            setSelectedCity(null);
             reset();
           }, 3000);
-        }, 500); // Pequeno delay para suavizar transição
+        }, 500);
       } else {
         throw new Error("Resposta inesperada do servidor");
       }
@@ -106,11 +122,16 @@ export default function ContactFormSection({Cities}: {Cities?: any[]}) {
       console.error("Erro ao enviar formulário:", error);
       setErrorMessage("Erro ao enviar formulário. Tente novamente.");
       
-      // Limpar mensagem de erro após 5 segundos
       setTimeout(() => {
         setErrorMessage(null);
       }, 5000);
     }
+  };
+
+  const handleCitySelect = (city: City) => {
+    setSelectedCity(city);
+    setValue("city", city.name, { shouldValidate: true });
+    setCityDropdownOpen(false);
   };
 
   const handleHelpTypeChange = (value: string) => {
@@ -308,30 +329,59 @@ export default function ContactFormSection({Cities}: {Cities?: any[]}) {
               )}
             </div>
 
-            <div className="w-[832px] h-[77px] relative">
+            {/* SELECT CUSTOMIZADO DE CIDADE */}
+            <div className="w-[832px] h-[77px] relative" ref={cityDropdownRef}>
               <label className="absolute left-0 top-0 font-medium text-[18px] text-black leading-normal">
                 Cidade
               </label>
-              <select
-                {...register("city")}
-                onFocus={() => setFocusedField("city")}
-                onBlur={() => setFocusedField(null)}
+              
+              <input type="hidden" {...register("city")} />
+              
+              <button
+                type="button"
+                onClick={() => !isLoading && !isSuccess && setCityDropdownOpen(!cityDropdownOpen)}
                 disabled={isLoading || isSuccess}
-                className="absolute left-[11px] top-[45px] font-medium text-[18px] text-black bg-transparent border-none outline-none leading-normal appearance-none w-full disabled:opacity-50"
+                className="absolute left-[11px] top-[45px] font-medium text-[18px] text-black bg-transparent border-none outline-none leading-normal text-left w-full disabled:opacity-50"
               >
-                <option value="">Selecionar cidade</option>
-                <option value="sao-paulo">São Paulo</option>
-                <option value="rio-janeiro">Rio de Janeiro</option>
-                <option value="belo-horizonte">Belo Horizonte</option>
-                <option value="brasilia">Brasília</option>
-              </select>
+                {selectedCity ? `${selectedCity.name} - ${selectedCity.uf}` : "Selecionar cidade"}
+              </button>
+
               <div className="absolute left-0 bottom-0 w-[832px] h-0.5">
                 <Image src={line12} alt="" fill className="object-cover" />
               </div>
+              
               {focusedField === "city" && !errors.city && (
                 <div className="absolute left-0 bottom-0 w-[832px] h-0.5 bg-[#f87315]" />
               )}
-              <ChevronDown className="absolute right-3 top-2/3 transform -translate-y-1/2 w-[24px] h-[24px] text-[#61bb5a] pointer-events-none" />
+
+              <ChevronDown 
+                className={`absolute right-3 top-2/3 transform -translate-y-1/2 w-[24px] h-[24px] text-[#61bb5a] pointer-events-none transition-transform ${
+                  cityDropdownOpen ? "rotate-180" : ""
+                }`}
+              />
+
+              {cityDropdownOpen && (
+                <div className="absolute top-[85px] left-0 w-full bg-white rounded-[24px] shadow-lg overflow-hidden z-20">
+                  <ul className="max-h-[180px] overflow-auto">
+                    {Cities && Cities.length > 0 ? (
+                      Cities.sort((a, b) => a.name.localeCompare(b.name)).map((city) => (
+                        <li
+                          key={city.id}
+                          onClick={() => handleCitySelect(city)}
+                          className="px-6 py-3 cursor-pointer hover:bg-[#f2f2f2] text-black text-[16px]"
+                        >
+                          {city.name} - {city.uf}
+                        </li>
+                      ))
+                    ) : (
+                      <li className="px-6 py-3 text-gray-400 text-[16px]">
+                        Nenhuma cidade disponível
+                      </li>
+                    )}
+                  </ul>
+                </div>
+              )}
+
               {errors.city && (
                 <>
                   <div className="absolute left-0 bottom-0 w-[832px] h-0.5 bg-red-500" />

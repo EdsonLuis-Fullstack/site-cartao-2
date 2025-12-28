@@ -127,9 +127,9 @@ export default function UnitsHeroSection({ unit }: UnitsHeroSectionProps) {
   return (
     <section id="city-section" className="bg-[#fdfbf8] relative w-full min-h-screen font-(family-name:--font-figtree)">
       <div className="relative w-full pt-[112px] pb-[200px]">
-        <div className="flex flex-col max-w-7xl mx-auto px-6">
+        <div className="flex flex-col max-w-7xl mx-auto">
           <div>
-            <div className="flex flex-col items-center justify-center gap-10 md:flex-row md:gap-[65px]">
+            <div className="flex flex-col items-center justify-between gap-10 md:flex-row md:gap-[65px]">
               <div className="w-[449px] flex flex-col gap-[46px]">
                 <h2 className="font-medium text-[48px] leading-normal text-black w-[426px]">
                   Cartão Beneficiar em {unit.cidade.cidade}
@@ -184,7 +184,7 @@ export default function UnitsHeroSection({ unit }: UnitsHeroSectionProps) {
                 </div>
               </div>
 
-              <div className="flex-1 flex flex-col gap-[46px]">
+              <div className="flex-1 flex flex-col gap-[46px] ">
                 <div className="flex items-center gap-[12px] w-full">
                   <div className="bg-[#f87315] rounded-[50px] w-[39px] h-[39px] flex items-center justify-center overflow-hidden">
                     <MapPin className="w-[24px] h-[24px] text-white" />
@@ -199,15 +199,16 @@ export default function UnitsHeroSection({ unit }: UnitsHeroSectionProps) {
                 </p>
 
                 {mapsUrl && (
-                  <iframe
+                 
+                  <div className="w-full  h-[510px] rounded-xl overflow-hidden">
+              <iframe
                     src={mapsUrl}
-                    width="715"
-                    height="510"
-                    loading="lazy"
-                    className="rounded-xl border-0"
-                    title={`Mapa de ${unit.cidade.cidade}`}
-                    allowFullScreen
-                  ></iframe>
+
+       allowFullScreen
+                className="w-full h-full border-0"
+                loading="lazy"
+              ></iframe>
+            </div>
                 )}
               </div>
             </div>

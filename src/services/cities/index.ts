@@ -156,10 +156,10 @@ export class Cities {
         const response = await axiosInstance.post("cidades/list", {
           draw: 1,
           start: 0,
-          length: 140,
+          length: 300,
           sortBy: "cidade",
           sortDirection: "ASC",
-          filterOnlyExist: null, //P - Apenas cidades com parceiros || U - Apenas unidades com parceiros || Null - Todas as cidades
+           filterOnlyExist: "U", //P - Apenas cidades com parceiros || U - Apenas unidades com parceiros || Null - Todas as cidades
         });
 
         const responseFormatted = response.data.data.map(

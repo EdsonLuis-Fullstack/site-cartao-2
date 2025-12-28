@@ -91,7 +91,7 @@ const Page: NextPage<PartnerDynamicPage> = async ({
   
 
   const [citiesData, partnersData, categoriesData, unitPartners, bannerPartners] = await Promise.all([
-    api.cities.findAll({}),
+    api.cities.findAllCache({}),
     api.partners.findByCity({ city: cityWithoutUf, uf: uf }),
     api.categories.findAll({}),
     api.partners.findByCityPartner({ city: cityWithoutUf, uf: uf }),

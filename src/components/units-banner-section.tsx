@@ -71,7 +71,7 @@ export default function UnitsBannerSection({ cities }: UnitsBannerSectionProps) 
   };
 
   return (
-    <div className="h-[780px] overflow-hidden relative rounded-bl-[80px] rounded-br-[80px] w-full font-(family-name:--font-livvic)">
+    <div className="relative h-[780px] overflow-hidden rounded-bl-[80px] rounded-br-[80px] w-full font-(family-name:--font-livvic)">
       {/* Background */}
       <div className="absolute inset-0">
         <Image
@@ -90,57 +90,63 @@ export default function UnitsBannerSection({ cities }: UnitsBannerSectionProps) 
         />
       </div>
 
-      {/* Conteúdo */}
-      <div className="absolute flex flex-col gap-[16px] items-start left-4 md:left-[322px] top-[120px] md:top-60 px-4 md:px-0 max-w-[calc(100%-2rem)] md:max-w-none text-white">
-        <h1 className="text-[32px] md:text-[48px] font-medium leading-tight max-w-[436px]">
-          Encontre a Unidade Mais Próxima
-        </h1>
+      {/* CONTAINER IGUAL AO DA NAVBAR */}
+      <div className="relative h-full w-[1274px] max-w-[calc(100vw-48px)] mx-auto mt-10">
+        {/* Conteúdo */}
+        <div className="absolute top-[120px] md:top-60 flex flex-col gap-[16px] items-start text-white">
+          <h1 className="text-[32px] md:text-[48px] font-medium leading-tight max-w-[436px]">
+            Encontre a Unidade Mais Próxima
+          </h1>
 
-        {/* Select + Botão */}
-        <div ref={ref} className="flex items-center gap-4 mt-6 w-full max-w-[640px]">
-          {/* Select custom */}
-          <div className="relative w-full max-w-[480px]">
-            <button
-              onClick={() => setOpen((v) => !v)}
-              className="w-full h-[55px] bg-white rounded-[100px] px-[18px] pr-12 text-left font-medium text-[16px] text-black flex items-center justify-between"
-            >
-              {selectedCity ? selectedCity.name : "Escolher cidade"}
-              <ChevronDown
-                className={`w-6 h-6 text-[#61BB5A] transition-transform ${
-                  open ? "rotate-180" : ""
-                }`}
-              />
-            </button>
-
-            {open && (
-              <div className="absolute top-[60px] left-0 w-full bg-white rounded-[24px] shadow-lg overflow-hidden z-20">
-                <ul className="max-h-[200px] overflow-auto">
-                  {cities
-                    .sort((a, b) => a.name.localeCompare(b.name))
-                    .map((city) => (
-                      <li
-                        key={city.id}
-                        onClick={() => {
-                          setSelectedCity(city);
-                          setOpen(false);
-                        }}
-                        className="px-6 py-3 cursor-pointer hover:bg-[#f2f2f2] text-black text-[16px]"
-                      >
-                        {city.name}
-                      </li>
-                    ))}
-                </ul>
-              </div>
-            )}
-          </div>
-
-          {/* Botão Confirmar (EDITÁVEL) */}
-          <button
-            onClick={handleConfirm}
-            className="h-[55px] px-8 rounded-full bg-[#61BB5A] text-white font-semibold text-[16px] whitespace-nowrap hover:opacity-90 transition"
+          {/* Select + Botão */}
+          <div
+            ref={ref}
+            className="flex items-center gap-4 mt-6 w-full max-w-[640px]"
           >
-            Confirmar
-          </button>
+            {/* Select custom */}
+            <div className="relative w-full max-w-[480px]">
+              <button
+                onClick={() => setOpen((v) => !v)}
+                className="w-full h-[55px] bg-white rounded-[100px] px-[18px] pr-12 text-left font-medium text-[16px] text-black flex items-center justify-between"
+              >
+                {selectedCity ? selectedCity.name : "Escolher cidade"}
+                <ChevronDown
+                  className={`w-6 h-6 text-[#61BB5A] transition-transform ${
+                    open ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {open && (
+                <div className="absolute top-[60px] left-0 w-full bg-white rounded-[24px] shadow-lg overflow-hidden z-20">
+                  <ul className="max-h-[200px] overflow-auto">
+                    {cities
+                      .sort((a, b) => a.name.localeCompare(b.name))
+                      .map((city) => (
+                        <li
+                          key={city.id}
+                          onClick={() => {
+                            setSelectedCity(city);
+                            setOpen(false);
+                          }}
+                          className="px-6 py-3 cursor-pointer hover:bg-[#f2f2f2] text-black text-[16px]"
+                        >
+                          {city.name}
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            {/* Botão Confirmar */}
+            <button
+              onClick={handleConfirm}
+              className="h-[55px] px-8 rounded-full bg-[#61BB5A] text-white font-semibold text-[16px] whitespace-nowrap hover:opacity-90 transition"
+            >
+              Confirmar
+            </button>
+          </div>
         </div>
       </div>
     </div>

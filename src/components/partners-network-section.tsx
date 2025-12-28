@@ -160,7 +160,7 @@ export default function PartnersNetworkSection({
         </div>
 
         {/* Hero section with hand holding card */}
-        <div className="relative mb-16 flex flex-col">
+        <div className="relative flex flex-col">
           <div className="flex justify-center relative">
             <Image
               src={handWithCard}

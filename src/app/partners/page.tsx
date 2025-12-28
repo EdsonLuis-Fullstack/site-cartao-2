@@ -21,7 +21,7 @@ export async function generateMetadata() {
 const Page: NextPage = async () => {
   try {
     var [citiesData, partnersData, categoriesData] = await Promise.all([
-      api.cities.findAll({}),
+      api.cities.findAllCache({}),
       api.partners.findAll({}),
       api.categories.findAll({}),
     ]);

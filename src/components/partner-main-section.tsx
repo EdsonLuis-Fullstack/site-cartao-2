@@ -1,9 +1,16 @@
 "use client";
-import { ArrowRight, Globe, MapPin, Phone, Facebook, Instagram } from "lucide-react";
+import {
+  ArrowRight,
+  Globe,
+  MapPin,
+  Phone,
+  Facebook,
+  Instagram,
+} from "lucide-react";
 import Image from "next/image";
 import whatsappIcon from "@/assets/whatsapp.svg";
 import creditCardWoman from "../../public/images/credit-card-woman.webp";
-import {useEffect} from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 
 interface Partner {
@@ -50,10 +57,10 @@ export default function PartnerMainSection({
 }: PartnerMainSectionProps) {
   useEffect(() => {
     if (!partner) {
-      window.location.href = '/404';
+      window.location.href = "/404";
     }
   }, [partner]);
-  
+
   const formatWhatsappNumber = (number: string) => {
     const numberWithCountryCode = number.startsWith("+")
       ? number
@@ -64,11 +71,14 @@ export default function PartnerMainSection({
   };
 
   const servicesResume = () => {
-    return partner.servicos
-      .split(".")
-      .at(0)
-      ?.trim()
-      .toLowerCase() || "";
+    const first = (partner.servicos || "").split(".").at(0);
+    return first
+      ? first
+          .replace(/\r?\n+/g, ",")
+          .replace(/\s*,\s*/g, ", ")
+          .trim()
+          .toLowerCase()
+      : "";
   };
 
   const getFullAddress = () => {
@@ -86,21 +96,22 @@ export default function PartnerMainSection({
 
   // Normalize category name to prevent hydration mismatch
   const getCategoryName = () => {
-    return partner.categoria_obj?.nome?.replace(/\s*\/\s*$/, "").trim() || "";
+
+    return partner.categoria_obj?.nome?.replace(/\s*\/\s*$/, "").trim().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')
   };
 
   // Função para detectar tipo de link
   const getLinkType = (url: string) => {
     if (!url) return null;
-    
+
     const lowerUrl = url.toLowerCase();
-    if (lowerUrl.includes('facebook.com') || lowerUrl.includes('fb.com')) {
-      return 'facebook';
+    if (lowerUrl.includes("facebook.com") || lowerUrl.includes("fb.com")) {
+      return "facebook";
     }
-    if (lowerUrl.includes('instagram.com')) {
-      return 'instagram';
+    if (lowerUrl.includes("instagram.com")) {
+      return "instagram";
     }
-    return 'website';
+    return "website";
   };
 
   const photoUrl = partner.foto
@@ -110,7 +121,10 @@ export default function PartnerMainSection({
   const linkType = getLinkType(partner.link);
 
   return (
-    <section id="sobre" className="relative w-full min-h-screen lg:min-h-[1468px] py-8 md:py-12 lg:py-[81px] px-4 md:px-8 lg:px-[319px] font-(family-name:--font-figtree) overflow-hidden">
+    <section
+      id="sobre"
+      className="relative w-full min-h-screen lg:min-h-[1468px] py-8 md:py-12 lg:py-[81px] px-4 md:px-8  font-(family-name:--font-figtree) overflow-hidden"
+    >
       <div className="w-full max-w-[1282px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-[628px_1fr] gap-8 lg:gap-[74px] items-start">
           <div className="flex flex-col gap-[30px] w-full">
@@ -128,7 +142,13 @@ export default function PartnerMainSection({
                 />
               </div>
               <h1 className="flex-1 font-medium text-xl md:text-2xl lg:text-[32px] text-black leading-normal min-h-px min-w-px whitespace-normal">
-                {partner.nome}
+                {partner.nome
+                  .split(" ")
+                  .map(
+                    (word) =>
+                      word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+                  )
+                  .join(" ")}
               </h1>
             </div>
 
@@ -140,21 +160,31 @@ export default function PartnerMainSection({
 
             <div className="flex flex-col gap-6 md:gap-8 lg:gap-[46px] text-black w-full leading-normal whitespace-pre-wrap">
               <h2 className="font-semibold text-xl md:text-2xl lg:text-[24px] w-full">
-                  Sobre o parceiro
+                Sobre o parceiro
               </h2>
-                <p className="font-normal text-base md:text-lg lg:text-[18px] w-full leading-relaxed">
-                {partner.nome} atua em {partner.cidade} – SP, nas áreas de {getCategoryName()}, e faz parte da rede de parceiros do Cartão Beneficiar, que não é convênio médico ou plano de saúde, mas sim um cartão de benefícios em consultas médicas e odontológicas, com descontos em exames na cidade de {partner.cidade}.
+              <p className="font-normal text-base md:text-lg lg:text-[18px] w-full leading-relaxed">
+                {partner.nome.split(" ").map((word) =>word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ")}{" "}
+                atua em {partner.cidade} – SP, nas áreas de {getCategoryName()},
+                e faz parte da rede de parceiros do Cartão Beneficiar, que não é
+                convênio médico ou plano de saúde, mas sim um cartão de
+                benefícios em consultas médicas e odontológicas, com descontos
+                em exames na cidade de {partner.cidade}.
                 <br />
                 <br />
-                Em {partner.nome}, os beneficiários do Cartão Beneficiar encontram{" "}{servicesResume()}, entre outros serviços, com condições diferenciadas. A equipe está preparada para atender com cuidado e esclarecer todas as dúvidas.
+                Em{" "}
+                {partner.nome.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ")},
+                os beneficiários do Cartão Beneficiar encontram{" "}
+                {servicesResume()}, entre outros serviços, com condições
+                diferenciadas. A equipe está preparada para atender com cuidado
+                e esclarecer todas as dúvidas.
                 <br />
                 <br />
-                </p>
+              </p>
             </div>
 
             {/* Contact Buttons */}
-            
-            <div className="flex flex-wrap justify-start gap-4 lg:gap-10 w-full lg:w-[415px]">
+
+            <div className="flex flex-wrap justify-start gap-4 lg:gap-10 w-full">
               {partner.whatsapp && (
                 <button
                   className="bg-[#f87315] cursor-pointer rounded-[100px] px-[18px] py-[5px] h-[45px] flex items-center gap-[15px] shrink-0 hover:bg-[#e66a0a] transition-colors"
@@ -199,7 +229,7 @@ export default function PartnerMainSection({
                 </button>
               )}
 
-              {partner.link && linkType === 'facebook' && (
+              {partner.link && linkType === "facebook" && (
                 <button
                   className="border border-[#f87315] cursor-pointer rounded-[100px] px-[18px] py-[5px] flex items-center gap-[15px] h-[45px] hover:bg-[#f87315] hover:text-white transition-colors group"
                   onClick={() => window.open(`${partner.link}`, "_blank")}
@@ -211,7 +241,7 @@ export default function PartnerMainSection({
                 </button>
               )}
 
-              {partner.link && linkType === 'instagram' && (
+              {partner.link && linkType === "instagram" && (
                 <button
                   className="border border-[#f87315] cursor-pointer rounded-[100px] px-[18px] py-[5px] flex items-center gap-[15px] h-[45px] hover:bg-[#f87315] hover:text-white transition-colors group"
                   onClick={() => window.open(`${partner.link}`, "_blank")}
@@ -223,7 +253,7 @@ export default function PartnerMainSection({
                 </button>
               )}
 
-              {partner.link && linkType === 'website' && (
+              {partner.link && linkType === "website" && (
                 <button
                   className="border border-[#f87315] cursor-pointer rounded-[100px] px-[18px] py-[5px] flex items-center gap-[15px] w-[119px] h-[45px] hover:bg-[#f87315] hover:text-white transition-colors group"
                   onClick={() => window.open(`${partner.link}`, "_blank")}
@@ -263,13 +293,13 @@ export default function PartnerMainSection({
                 Soluções inteligentes em saúde, pensadas para empresas que
                 valorizam pessoas e constroem o futuro com responsabilidade.
               </p>
-              <Link href="https://checkout.cartaobeneficiar.com.br/" >
-              <button className="bg-[#61bb5a] cursor-pointer rounded-[100px] w-full sm:w-[308px] px-[29px] py-[14px] flex items-center justify-center gap-[15px] shrink-0 hover:bg-[#559954] transition-colors">
-                <span className="font-semibold text-[16px] text-center text-white uppercase leading-normal">
-                  Solicitar cartão agora
-                </span>
-                <ArrowRight className="w-[21px] h-[21px] text-white -rotate-45" />
-              </button>
+              <Link href="https://checkout.cartaobeneficiar.com.br/">
+                <button className="bg-[#61bb5a] cursor-pointer rounded-[100px] w-full sm:w-[308px] px-[29px] py-[14px] flex items-center justify-center gap-[15px] shrink-0 hover:bg-[#559954] transition-colors">
+                  <span className="font-semibold text-[16px] text-center text-white uppercase leading-normal">
+                    Solicitar cartão agora
+                  </span>
+                  <ArrowRight className="w-[21px] h-[21px] text-white -rotate-45" />
+                </button>
               </Link>
             </div>
           </div>

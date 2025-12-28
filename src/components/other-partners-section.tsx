@@ -42,6 +42,16 @@ function PartnerCard({ partner }: PartnerCardProps) {
 
   const fullAddress = `${partner.endereco}, ${partner.numero} - ${partner.bairro}, ${partner.cidade}/${partner.estado}`;
 
+  // Função para capitalizar a primeira letra de cada palavra
+  const capitalizeFirstLetter = (text: string) => {
+    if (!text) return text;
+    return text
+      .toLowerCase()
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  };
+
   const generateSlug = (text: string) => {
     return text
       .toLowerCase()
@@ -84,7 +94,7 @@ function PartnerCard({ partner }: PartnerCardProps) {
 
         <div className="flex flex-col gap-[16px] w-full">
           <h3 className="font-medium text-[17px] text-black leading-normal truncate">
-            {partner.nome}
+            {capitalizeFirstLetter(partner.nome)}
           </h3>
 
           <div className="flex flex-col gap-[10px] w-full">
@@ -415,7 +425,7 @@ export default function OtherPartnersSection({
               </div>
             ) : (
               <div className="text-center py-20">
-                <p className="text-gray-500 text-lg">
+                <p className="text-gray-500 text-[22px]">
                   Nenhum parceiro encontrado
                 </p>
               </div>

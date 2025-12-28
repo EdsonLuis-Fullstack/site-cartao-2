@@ -14,7 +14,7 @@ export default function AboutBannerSection() {
       <div className="relative h-full w-[1274px] max-w-[calc(100vw-48px)] mx-auto">
         
         {/* Background Ellipse */}
-        <div className="absolute w-[1066px] h-[1000px] right-[-150px] -top-10 pointer-events-none">
+        <div className="absolute w-[1066px] h-[1000px] right-[-150px] -top-0 pointer-events-none">
           <Image
             alt=""
             src={aboutEllipse}
@@ -58,7 +58,7 @@ export default function AboutBannerSection() {
             </p>
           </div>
 
-          <p className="font-semibold font-(family-name:--font-figtree) text-[16px] md:text-[20px] text-white leading-[1.9]">
+          <p className="font-semibold mt-2.5 font-(family-name:--font-figtree) text-[16px] md:text-[20px] text-white leading-[1.9]">
             Por isso, criamos soluções que quebram barreiras
           </p>
 

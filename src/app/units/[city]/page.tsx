@@ -38,7 +38,7 @@ const Page: NextPage<PartnerDynamicPage> = async ({
     <main className="relative">
       <UnitsBannerSection cities={citiesData} />
       <NavBar />
-      <UnitsHeroSection unit={partnerData[0]} />
+      <UnitsHeroSection unit={partnerData} />
       <Footer />
       <CopyrightBar />
     </main>

@@ -33,13 +33,16 @@ export async function generateMetadata({
     city: cityWithoutUf.replaceAll("-", " "),
     uf: uf || null,
   });
-
-  const servicos = partnerData?.servicos
-    .split(".")
-    .at(0)
-    ?.trim()
-    .toLowerCase() || "";
-
+  const servicesResume = () => {
+    const first = (partnerData?.servicos || "").split(".").at(0);
+    return first
+      ? first
+          .replace(/\r?\n+/g, ",")
+          .replace(/\s*,\s*/g, ", ")
+          .trim()
+          .toLowerCase()
+      : "";
+  };
   if(!partnerData){
     return getMetaData({
       title: `Parceiro não encontrado | Beneficiar`,
@@ -50,8 +53,8 @@ export async function generateMetadata({
   }
 
   return getMetaData({
-    title: `${partnerData.nome} em ${partnerData.cidade} | Telefone, WhatsApp e endereço`,
-    description: `Saiba telefone, WhatsApp e endereço de ${partnerData.nome} em ${partnerData.cidade}. Parceiro do Cartão Beneficiar, que atua nas áreas de ${partnerData.categoria_obj.nome} e oferece ${servicos} com condições especiais para quem tem o cartão.`,
+    title: `${partnerData.nome.split(" ").map((word) =>word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ")} em ${partnerData.cidade} | Telefone, WhatsApp e endereço`,
+    description: `Saiba telefone, WhatsApp e endereço de ${partnerData.nome.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ")} em ${partnerData.cidade}. Parceiro do Cartão Beneficiar, que atua nas áreas de ${partnerData.categoria_obj.nome.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ")} e oferece ${servicesResume()} com condições especiais para quem tem o cartão.`,
     url: `/partners/${city}/${name}`,
     image: "",
   });
@@ -77,14 +80,11 @@ const Page: NextPage<PartnerDynamicPage> = async ({
     : city;
   
   const uf = hasUfSuffix ? lastPart : null;
-  console.log("cityWithoutUf", cityWithoutUf);
-  console.log("uf", uf);
   const partnerData: any | undefined = await api.partner.findbyNameAndCity({
     name: name.replaceAll("-", " "),
     city: cityWithoutUf.replaceAll("-", " "),
     uf: uf || null,
   }) 
-  console.log("partnerData", name.replaceAll("-", " "));
   
   // if(!partnerData){
   //   redirect("/404"); // ✅ Uso correto do redirect

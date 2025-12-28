@@ -19,8 +19,10 @@ export default function CompanyBannerSection() {
           priority
         />
 
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/15" />
+        {/* Overlay leve ~10% */}
+        <div className="absolute inset-0 bg-black/35" />
+
+        {/* Gradiente radial (mantido exatamente igual) */}
         <div
           className="absolute inset-0"
           style={{
@@ -43,7 +45,8 @@ export default function CompanyBannerSection() {
           >
             <p className="mb-0">
               <span className="tracking-tight font-medium text-white">
-                Saúde acessível para sua equipe. Valor real para<br />sua empresa.
+                Saúde acessível para sua equipe. Valor real para<br />
+                sua empresa.
               </span>
             </p>
           </div>
