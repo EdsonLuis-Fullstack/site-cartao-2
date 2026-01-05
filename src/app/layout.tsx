@@ -3,6 +3,7 @@ import ReactQueryProvider from "@/providers/react-query-provider";
 import "@/styles/globals.css";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Figtree, Livvic, Manrope, Poppins } from "next/font/google";
+import { Suspense } from "react";
 
 const livvic = Livvic({
   subsets: ["latin"],
@@ -38,7 +39,9 @@ export default async function RootLayout({
       <body
         className={`overflow-x-hidden ${figtree.variable} ${manrope.variable} ${livvic.variable} ${poppins.variable} font-sans`}
       >
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+        <Suspense fallback={null}>
+          <ReactQueryProvider>{children}</ReactQueryProvider>
+        </Suspense>
       </body>
     </html>
   );

@@ -8,12 +8,16 @@ import { NavBar } from "@/components/shared/navbar";
 import { api } from "@/instances/api";
 import { PartnerDynamicPage } from "../../types";
 import { redirect } from "next/navigation"; // ✅ Importação correta
+import { cacheLife } from "next/cache";
 
 export async function generateMetadata({
   params,
 }: {
   params: { name: string; city: string };
 }) {
+    "use cache"
+  cacheLife("hours")
+
   let { name, city } = await params;
 
   const parts = city.split("-");
@@ -65,6 +69,9 @@ const Page: NextPage<PartnerDynamicPage> = async ({
 }: {
   params: Promise<{ name: string, city: string }>;
 }) => {
+  "use cache"
+  cacheLife("hours")
+
   let { name, city } = await params;
 
   const parts = city.split("-");
