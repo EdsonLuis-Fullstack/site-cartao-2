@@ -37,7 +37,7 @@ interface City {
   uf: string;
 }
 
-export default function ContactFormSection({Cities}: {Cities?: City[]}) {
+export default function ContactFormSection({cities}: {cities?: City[]}) {
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -45,6 +45,8 @@ export default function ContactFormSection({Cities}: {Cities?: City[]}) {
   const [cityDropdownOpen, setCityDropdownOpen] = useState(false);
   const [selectedCity, setSelectedCity] = useState<City | null>(null);
   const cityDropdownRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [textareaHeight, setTextareaHeight] = useState(24);
 
   const {
     register,
@@ -86,6 +88,26 @@ export default function ContactFormSection({Cities}: {Cities?: City[]}) {
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
   }, []);
+
+  // Auto-resize textarea
+  const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const textarea = e.target;
+    textarea.style.height = "auto";
+    const scrollHeight = textarea.scrollHeight;
+    const maxHeight = 120;
+    const newHeight = Math.min(scrollHeight, maxHeight);
+    textarea.style.height = `${newHeight}px`;
+    setTextareaHeight(newHeight);
+  };
+
+  // Resetar altura do textarea quando o formulário é resetado
+  const messageValue = watch("message");
+  useEffect(() => {
+    if (!messageValue && textareaRef.current) {
+      textareaRef.current.style.height = "24px";
+      setTextareaHeight(24);
+    }
+  }, [messageValue]);
 
   const onSubmit = async (data: ContactFormData) => {
     setIsLoading(true);
@@ -212,11 +234,11 @@ export default function ContactFormSection({Cities}: {Cities?: City[]}) {
         }
       `}</style>
 
-      <div className="w-[1053px] bg-[#fdfbf8] rounded-[20px] px-24 py-[38px] relative z-10">
+      <div className="w-[1053px] bg-[#FFFBF5] rounded-[20px] px-24 py-[38px] relative z-10">
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
           <div className="flex flex-wrap gap-[25px] mb-[30px]">
             <div className="w-[401px] h-[77px] relative">
-              <label className="absolute left-0 top-0 font-medium text-[18px] text-black leading-normal">
+              <label className="absolute left-0 top-0 font-medium text-[16px] text-black leading-normal">
                 Nome
               </label>
               <input
@@ -225,7 +247,7 @@ export default function ContactFormSection({Cities}: {Cities?: City[]}) {
                 onFocus={() => setFocusedField("firstName")}
                 onBlur={() => setFocusedField(null)}
                 disabled={isLoading || isSuccess}
-                className="absolute left-[11px] top-[45px] font-medium text-[18px] text-black bg-transparent border-none outline-none leading-normal placeholder:text-[#d9d9d9] disabled:opacity-50"
+                className="absolute left-[11px] top-[45px] font-medium text-[16px] text-black bg-transparent border-none outline-none leading-normal placeholder:text-[#d9d9d9] disabled:opacity-50"
                 placeholder="Digite seu nome"
               />
               <div className="absolute left-0 bottom-0 w-[406px] h-0.5">
@@ -243,7 +265,7 @@ export default function ContactFormSection({Cities}: {Cities?: City[]}) {
             </div>
 
             <div className="w-[401px] h-[77px] relative">
-              <label className="absolute left-0 top-0 font-medium text-[18px] text-black leading-normal">
+              <label className="absolute left-0 top-0 font-medium text-[16px] text-black leading-normal">
                 Sobrenome
               </label>
               <input
@@ -252,7 +274,7 @@ export default function ContactFormSection({Cities}: {Cities?: City[]}) {
                 onFocus={() => setFocusedField("lastName")}
                 onBlur={() => setFocusedField(null)}
                 disabled={isLoading || isSuccess}
-                className="absolute left-[11px] top-[45px] font-medium text-[18px] text-black bg-transparent border-none outline-none leading-normal placeholder:text-[#d9d9d9] disabled:opacity-50"
+                className="absolute left-[11px] top-[45px] font-medium text-[16px] text-black bg-transparent border-none outline-none leading-normal placeholder:text-[#d9d9d9] disabled:opacity-50"
                 placeholder="Digite seu sobrenome"
               />
               <div className="absolute left-0 bottom-0 w-[406px] h-0.5">
@@ -270,7 +292,7 @@ export default function ContactFormSection({Cities}: {Cities?: City[]}) {
             </div>
 
             <div className="w-[406px] h-[77px] relative">
-              <label className="absolute left-0 top-0 font-medium text-[18px] text-black leading-normal">
+              <label className="absolute left-0 top-0 font-medium text-[16px] text-black leading-normal">
                 Telefone
               </label>
               <input
@@ -285,7 +307,7 @@ export default function ContactFormSection({Cities}: {Cities?: City[]}) {
                 onFocus={() => setFocusedField("phone")}
                 onBlur={() => setFocusedField(null)}
                 disabled={isLoading || isSuccess}
-                className="absolute left-[11px] top-[45px] font-medium text-[18px] text-black bg-transparent border-none outline-none leading-normal placeholder:text-[#d9d9d9] disabled:opacity-50"
+                className="absolute left-[11px] top-[45px] font-medium text-[16px] text-black bg-transparent border-none outline-none leading-normal placeholder:text-[#d9d9d9] disabled:opacity-50"
                 placeholder="(00) 0000-0000"
               />
               <div className="absolute left-0 bottom-0 w-[406px] h-0.5">
@@ -303,7 +325,7 @@ export default function ContactFormSection({Cities}: {Cities?: City[]}) {
             </div>
 
             <div className="w-[401px] h-[77px] relative">
-              <label className="absolute left-0 top-0 font-medium text-[18px] text-black leading-normal">
+              <label className="absolute left-0 top-0 font-medium text-[16px] text-black leading-normal">
                 E-mail
               </label>
               <input
@@ -312,7 +334,7 @@ export default function ContactFormSection({Cities}: {Cities?: City[]}) {
                 onFocus={() => setFocusedField("email")}
                 onBlur={() => setFocusedField(null)}
                 disabled={isLoading || isSuccess}
-                className="absolute left-[11px] top-[45px] font-medium text-[18px] text-black bg-transparent border-none outline-none leading-normal placeholder:text-[#d9d9d9] disabled:opacity-50"
+                className="absolute left-[11px] top-[45px] font-medium text-[16px] text-black bg-transparent border-none outline-none leading-normal placeholder:text-[#d9d9d9] disabled:opacity-50"
                 placeholder="Digite seu melhor e-mail"
               />
               <div className="absolute left-0 bottom-0 w-[406px] h-0.5">
@@ -331,7 +353,7 @@ export default function ContactFormSection({Cities}: {Cities?: City[]}) {
 
             {/* SELECT CUSTOMIZADO DE CIDADE */}
             <div className="w-[832px] h-[77px] relative" ref={cityDropdownRef}>
-              <label className="absolute left-0 top-0 font-medium text-[18px] text-black leading-normal">
+              <label className="absolute left-0 top-0 font-medium text-[16px] text-black leading-normal">
                 Cidade
               </label>
               
@@ -341,7 +363,7 @@ export default function ContactFormSection({Cities}: {Cities?: City[]}) {
                 type="button"
                 onClick={() => !isLoading && !isSuccess && setCityDropdownOpen(!cityDropdownOpen)}
                 disabled={isLoading || isSuccess}
-                className="absolute left-[11px] top-[45px] font-medium text-[18px] text-black bg-transparent border-none outline-none leading-normal text-left w-full disabled:opacity-50"
+                className="absolute left-[11px] top-[45px] font-medium text-[16px] text-black bg-transparent border-none outline-none leading-normal text-left w-full disabled:opacity-50"
               >
                 {selectedCity ? `${selectedCity.name} - ${selectedCity.uf}` : "Selecionar cidade"}
               </button>
@@ -363,18 +385,18 @@ export default function ContactFormSection({Cities}: {Cities?: City[]}) {
               {cityDropdownOpen && (
                 <div className="absolute top-[85px] left-0 w-full bg-white rounded-[24px] shadow-lg overflow-hidden z-20">
                   <ul className="max-h-[180px] overflow-auto">
-                    {Cities && Cities.length > 0 ? (
-                      Cities.sort((a, b) => a.name.localeCompare(b.name)).map((city) => (
+                    {cities && cities.length > 0 ? (
+                      [...cities].sort((a, b) => a.name.localeCompare(b.name)).map((city) => (
                         <li
                           key={city.id}
                           onClick={() => handleCitySelect(city)}
-                          className="px-6 py-3 cursor-pointer hover:bg-[#f2f2f2] text-black text-[16px]"
+                          className="px-6 py-3 cursor-pointer hover:bg-[#f2f2f2] text-black text-[14px]"
                         >
                           {city.name} - {city.uf}
                         </li>
                       ))
                     ) : (
-                      <li className="px-6 py-3 text-gray-400 text-[16px]">
+                      <li className="px-6 py-3 text-gray-400 text-[14px]">
                         Nenhuma cidade disponível
                       </li>
                     )}
@@ -390,76 +412,59 @@ export default function ContactFormSection({Cities}: {Cities?: City[]}) {
               )}
             </div>
 
-            <div className="w-[860px] flex flex-col gap-[43px]">
-              <h3 className="font-medium text-[24px] text-[#61bb5a] leading-normal">
+            {/* CHECKBOXES HARMONIZADOS - GRID 2 COLUNAS COM TAMANHOS IGUAIS */}
+            <div className="w-full flex flex-col gap-[24px]">
+              <h3 className="font-medium text-[19px] text-[#61bb5a] leading-normal pb-1">
                 Como podemos te ajudar?
               </h3>
               <input type="hidden" {...register("helpType")} />
-              <div className="flex flex-wrap gap-[17px]">
-                {helpOptions.map((option, index) => {
-                  const getWidth = (index: number) => {
-                    switch (index) {
-                      case 0:
-                        return "396px";
-                      case 1:
-                        return "295px";
-                      case 2:
-                        return "396px";
-                      case 3:
-                        return "286px";
-                      case 4:
-                        return "396px";
-                      case 5:
-                        return "295px";
-                      default:
-                        return "auto";
-                    }
-                  };
-
-                  return (
+              <div className="grid grid-cols-2 gap-x-[16px] gap-y-[16px]  pl-6 pb-3">
+                {helpOptions.map((option) => (
+                  <div
+                    key={option.id}
+                    className={`flex items-center gap-[14px] ${
+                      isLoading || isSuccess ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+                    }`}
+                    onClick={() => !isLoading && !isSuccess && handleHelpTypeChange(option.id)}
+                  >
                     <div
-                      key={option.id}
-                      className={`flex items-center gap-[17px] ${
-                        isLoading || isSuccess ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+                      className={`min-w-[24px] w-[22px] h-[22px] rounded-[4px] border border-[#61bb5a] flex items-center justify-center transition-colors ${
+                        watchedHelpType === option.id
+                          ? "bg-[#61bb5a]"
+                          : "bg-white"
                       }`}
-                      style={{ width: getWidth(index) }}
-                      onClick={() => !isLoading && !isSuccess && handleHelpTypeChange(option.id)}
                     >
-                      <div
-                        className={`w-[26px] h-[26px] rounded-[5px] border border-[#61bb5a] flex items-center justify-center ${
-                          watchedHelpType === option.id
-                            ? "bg-[#61bb5a]"
-                            : "bg-white"
-                        }`}
-                      >
-                        {watchedHelpType === option.id && (
-                          <Check className="w-5 h-5 text-white" />
-                        )}
-                      </div>
-                      <p className="font-medium text-[18px] text-black leading-normal flex-1">
-                        {option.label}
-                      </p>
+                      {watchedHelpType === option.id && (
+                        <Check className="w-4 h-4 text-white" />
+                      )}
                     </div>
-                  );
-                })}
+                    <p className="font-medium text-[17px] text-black leading-normal flex-1">
+                      {option.label}
+                    </p>
+                  </div>
+                ))}
               </div>
               {errors.helpType && (
-                <p className="text-red-500 text-sm -mt-8">{errors.helpType.message}</p>
+                <p className="text-red-500 text-sm -mt-4">{errors.helpType.message}</p>
               )}
             </div>
 
-            <div className="w-[860px] h-[77px] relative">
-              <label className="absolute left-0 top-0 font-medium text-[18px] text-black leading-normal">
+            <div className="w-[860px] relative" style={{ height: `${textareaHeight + 53}px` }}>
+              <label className="absolute left-0 top-0 font-medium text-[16px] text-black leading-normal">
                 Digite a sua dúvida
               </label>
               <textarea
-                {...register("message")}
+                ref={textareaRef}
+                {...register("message", {
+                  onChange: handleTextareaChange
+                })}
                 onFocus={() => setFocusedField("message")}
                 onBlur={() => setFocusedField(null)}
                 disabled={isLoading || isSuccess}
-                className="absolute left-[11px] text-black top-[45px] w-full font-medium text-[18px] bg-transparent border-none outline-none leading-normal placeholder:text-[#d9d9d9] resize-none disabled:opacity-50"
+                className="absolute left-[11px] text-black top-[45px] w-[calc(100%-22px)] font-medium text-[16px] bg-transparent border-none outline-none leading-normal placeholder:text-[#d9d9d9] resize-none disabled:opacity-50 overflow-y-auto transition-all duration-150"
                 placeholder="Minha dúvida é em relação..."
                 rows={1}
+                style={{ height: `${textareaHeight}px` }}
               />
               <div className="absolute left-0 bottom-0 w-[860px] h-0.5">
                 <Image src={line13} alt="" fill className="object-cover" />

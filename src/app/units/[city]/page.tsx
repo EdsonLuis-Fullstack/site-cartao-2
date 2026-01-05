@@ -7,6 +7,7 @@ import { NavBar } from "@/components/shared/navbar";
 import UnitsBannerSection from "@/components/units-banner-section";
 import { api } from "@/instances/api";
 import { PartnerDynamicPage } from "@/app/partners/types";
+import { cacheLife } from "next/cache";
 
 export async function generateMetadata({
   params,
@@ -28,12 +29,15 @@ const Page: NextPage<PartnerDynamicPage> = async ({
 }: {
   params: Promise<{ city: string }>;
 }) => {
+    "use cache"
+     cacheLife("hours")
   let { city } = await params;
   city = city.replace("-", " ");
   const [citiesData, partnerData] = await Promise.all([
     api.cities.findAllPartnersCache({}),
     api.unit.findByCity({ city: city }),
   ]);
+
   return (
     <main className="relative">
       <UnitsBannerSection cities={citiesData} />

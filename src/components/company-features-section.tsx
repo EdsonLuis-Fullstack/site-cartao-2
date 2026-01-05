@@ -11,17 +11,19 @@ export default function CompanyFeaturesSection() {
   const [key, setKey] = useState(0);
 
   useEffect(() => {
+    setKey((prev) => prev + 1);
+    
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % 3);
-      setKey((prev) => prev + 1);
-    }, 4000);
+    }, 7000);
 
     return () => clearInterval(interval);
   }, [activeIndex]);
 
   const handleCardClick = (index: number) => {
-    setActiveIndex(index);
-    setKey((prev) => prev + 1);
+    if (index !== activeIndex) {
+      setActiveIndex(index);
+    }
   };
 
   return (
@@ -61,7 +63,7 @@ export default function CompanyFeaturesSection() {
                     key={key}
                     className="absolute bottom-[0.5px] left-0 h-2 bg-[#f87315] rounded-r-[50px]"
                     style={{
-                      animation: "progress 4s linear",
+                      animation: "progress 6s linear",
                       width: "100%",
                     }}
                   />
@@ -95,7 +97,7 @@ export default function CompanyFeaturesSection() {
                     key={key}
                     className="absolute bottom-[0.5px] left-0 h-[8px] bg-[#f87315] rounded-r-[50px]"
                     style={{
-                      animation: "progress 4s linear",
+                      animation: "progress 6s linear",
                       width: "100%",
                     }}
                   />
@@ -129,7 +131,7 @@ export default function CompanyFeaturesSection() {
                     key={key}
                     className="absolute bottom-[0.5px] left-0 h-[8px] bg-[#f87315] rounded-r-[50px]"
                     style={{
-                      animation: "progress 4s linear",
+                      animation: "progress 6s linear",
                       width: "100%",
                     }}
                   />

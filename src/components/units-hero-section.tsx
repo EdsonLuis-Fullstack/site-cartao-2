@@ -85,9 +85,9 @@ const weekDaysOrder: { [key: string]: number } = {
 };
 
 export default function UnitsHeroSection({ unit }: UnitsHeroSectionProps) {
-  if(!unit || unit.length === 0) {
-    return window.location.href = '/404'
-  }
+  // if(!unit || unit.length === 0) {
+  //   return window.location.href = '/404'
+  // }
   const formatSchedules = (schedules: Schedule[]) => {
     const sortedSchedules = [...schedules].sort(
       (a, b) => (weekDaysOrder[a.dia_semana] || 0) - (weekDaysOrder[b.dia_semana] || 0)
@@ -136,7 +136,7 @@ export default function UnitsHeroSection({ unit }: UnitsHeroSectionProps) {
                 </h2>
 
                 <p className="font-normal text-[18px] leading-normal text-black w-[449px]">
-                No Cartão Beneficiar em {unit.cidade.cidade}, você e sua família podem cuidar da saúde com consultas acessíveis, exames com desconto e uma rede de parceiros selecionados. Nosso foco é oferecer atendimento humanizado, sem burocracia, para quem vive em {unit.cidade.cidade} e região.
+                No cartão beneficiar em {unit.cidade.cidade.toLowerCase()}, você e sua família podem cuidar da saúde com consultas acessíveis, exames com desconto e uma rede de parceiros selecionados. Nosso foco é oferecer atendimento humanizado, sem burocracia, para quem vive em {unit.cidade.cidade} e região.
                 </p>
 
                 <Link href={unit.link_whats} target="_blank">

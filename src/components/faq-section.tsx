@@ -56,7 +56,7 @@ export default function FaqSection() {
   };
 
   return (
-    <section id="faqs" className="bg-[#fdfbf8] w-full font-(family-name:--font-figtree) py-20">
+    <section id="faqs" className="bg-[#FFFBF5] w-full font-(family-name:--font-figtree) py-20">
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">

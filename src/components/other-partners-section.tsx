@@ -52,6 +52,12 @@ function PartnerCard({ partner }: PartnerCardProps) {
       .join(' ');
   };
 
+    // Função para capitalizar a primeira letra da palavra
+  const capitalizeFirstUniqueLetter = (text: string) => {
+    if (!text) return text;
+    return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+  };
+
   const generateSlug = (text: string) => {
     return text
       .toLowerCase()
@@ -87,7 +93,7 @@ function PartnerCard({ partner }: PartnerCardProps) {
 
           <div className="absolute right-0 top-0 bg-[#f87315] rounded-[100px] px-[14px] py-[4px] h-[24px] flex items-center max-w-[120px]">
             <span className="font-bold text-[14px] text-white truncate">
-              {partner.categoria_obj.nome}
+              {capitalizeFirstUniqueLetter(partner.categoria_obj.nome)}
             </span>
           </div>
         </div>
@@ -285,9 +291,6 @@ export default function OtherPartnersSection({
     }
   }, [partnersResponse.data, partnersResponse.isLoading]);
 
-  useEffect(() => {
-    console.log('City e UF recebidos:', { city, uf });
-  }, [city, uf]);
 
   const handleCategoryChange = (categoryId: string) => {
     const category = categories.find(

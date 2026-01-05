@@ -23,16 +23,16 @@ function StatCard({ value, description, variant = "default" }: StatCardProps) {
     >
       {variant === "highlight" ? (
         <>
+          <p className="text-xs font-bold leading-normal text-start whitespace-nowrap">
+              Qualidade de vida por<br />
+              um pouco mais de
+            </p>
           <div className="flex flex-col gap-0.5">
             <p className="leading-normal">
             <span className="text-[28px] font-semibold">R$1,00</span>
             <span className="text-sm">/dia</span>
           </p>
           </div>
-          <p className="text-xs font-bold leading-normal text-start whitespace-nowrap">
-              Qualidade de vida por<br />
-              um pouco mais de
-            </p>
         </>
       ) : (
         <>

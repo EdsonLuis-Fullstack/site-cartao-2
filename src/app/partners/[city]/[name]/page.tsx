@@ -85,11 +85,7 @@ const Page: NextPage<PartnerDynamicPage> = async ({
     city: cityWithoutUf.replaceAll("-", " "),
     uf: uf || null,
   }) 
-  
-  // if(!partnerData){
-  //   redirect("/404"); // ✅ Uso correto do redirect
-  // }
-  
+
   return (
     <main className="relative">
       <PartnerBannerSection />

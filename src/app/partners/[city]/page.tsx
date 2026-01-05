@@ -9,6 +9,7 @@ import { NavBar } from "@/components/shared/navbar";
 import { api } from "@/instances/api";
 import { Metadata } from "next";
 import { PartnerDynamicPage } from "../types";
+import { cacheLife } from "next/cache";
 
 export async function generateMetadata({
   params,
@@ -76,6 +77,8 @@ const Page: NextPage<PartnerDynamicPage> = async ({
 }: {
   params: Promise<{ city: string }>;
 }) => {
+  "use cache"
+  cacheLife("hours")
   const { city } = await params;
   
   const parts = city.split("-");

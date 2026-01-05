@@ -96,8 +96,9 @@ export default function PartnerMainSection({
 
   // Normalize category name to prevent hydration mismatch
   const getCategoryName = () => {
-
-    return partner.categoria_obj?.nome?.replace(/\s*\/\s*$/, "").trim().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')
+    if (!partner) return "";
+    const nome = partner.categoria_obj?.nome ?? "";
+    return nome.replace(/\s*\/\s*$/, "").trim().toLowerCase();
   };
 
   // Função para detectar tipo de link
@@ -142,13 +143,11 @@ export default function PartnerMainSection({
                 />
               </div>
               <h1 className="flex-1 font-medium text-xl md:text-2xl lg:text-[32px] text-black leading-normal min-h-px min-w-px whitespace-normal">
-                {partner.nome
-                  .split(" ")
-                  .map(
-                    (word) =>
-                      word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-                  )
-                  .join(" ")}
+                {(() => {
+                  const n = partner?.nome ?? "";
+                  const i = n.search(/\S/);
+                  return i === -1 ? "" : n.slice(0, i) + n.charAt(i).toUpperCase() + n.slice(i + 1).toLowerCase();
+                })()}
               </h1>
             </div>
 
@@ -163,7 +162,11 @@ export default function PartnerMainSection({
                 Sobre o parceiro
               </h2>
               <p className="font-normal text-base md:text-lg lg:text-[18px] w-full leading-relaxed">
-                {partner.nome.split(" ").map((word) =>word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ")}{" "}
+                {(() => {
+                  const n = (partner?.nome ?? "").toLowerCase();
+                  const i = n.search(/\S/);
+                  return i === -1 ? "" : n.slice(0, i) + n.charAt(i).toUpperCase() + n.slice(i + 1);
+                })()}{" "}
                 atua em {partner.cidade} – SP, nas áreas de {getCategoryName()},
                 e faz parte da rede de parceiros do Cartão Beneficiar, que não é
                 convênio médico ou plano de saúde, mas sim um cartão de
@@ -172,7 +175,7 @@ export default function PartnerMainSection({
                 <br />
                 <br />
                 Em{" "}
-                {partner.nome.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ")},
+                {partner.nome.split(" ").map((word) => word.charAt(0).toLowerCase() + word.slice(1).toLowerCase()).join(" ")},
                 os beneficiários do Cartão Beneficiar encontram{" "}
                 {servicesResume()}, entre outros serviços, com condições
                 diferenciadas. A equipe está preparada para atender com cuidado

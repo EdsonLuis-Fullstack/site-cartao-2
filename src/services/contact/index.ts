@@ -13,7 +13,7 @@ export class Contact {
         "como_podemo_ajudar": `${howHelp}`,
         "mensagem": `${message}`
         });
-        return true;
+        return response.data;
     } catch (error) {
         console.error("Error fetching subcategories by name:", error);
         throw error;

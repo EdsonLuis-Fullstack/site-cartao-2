@@ -6,6 +6,7 @@ import CopyrightBar from "@/components/copyright-bar";
 import { NavBar } from "@/components/shared/navbar";
 import UnitsBannerSection from "@/components/units-banner-section";
 import { api } from "@/instances/api";
+import { cacheLife } from "next/cache";
 
 export async function generateMetadata() {
   return getMetaData({
@@ -17,6 +18,9 @@ export async function generateMetadata() {
 }
 
 const Page: NextPage = async () => {
+  "use cache"
+  cacheLife("hours")
+  
   const citiesData = await api.cities.findAllCache({});
 
 

@@ -56,9 +56,9 @@ export default function TransformedLivesSection() {
         
 
         {/* Description */}
-        <div className="text-white text-[21px] leading-relaxed mb-8 max-w-[500px] mx-auto">
+        <div className="text-white text-[21px] leading-relaxed mb-8 max-w-[600px] mx-auto">
           <p>
-            Por trás de cada uso do nosso cartão, existe uma história de superação, de cuidado e de esperança renovada.<br/> São famílias inteiras sendo transformadas
+            Por trás de cada uso do nosso cartão, existe uma história de superação, de cuidado e de esperança renovada. {" "} <br /> São famílias inteiras sendo transformadas
           </p>
         </div>
 

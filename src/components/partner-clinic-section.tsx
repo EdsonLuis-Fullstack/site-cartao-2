@@ -35,9 +35,6 @@ export default function PartnerClinicSection({PartnerData, bannerPartners}: {Par
   
   // Seleciona a imagem do banner baseado em mobile ou desktop
   const getBannerUrl = () => {
-    if (!bannerPartners || bannerPartners.length === 0) {
-      return `https://api.cartaobeneficiar.com.br/uploads/parceiros/clinica_692f4abe2e98d.webp`;
-    }
     
     const banner = bannerPartners[0];
     const baseUrl = process.env.NEXT_PUBLIC_IMAGE_BASE_BANNER_URL || 'https://api.cartaobeneficiar.com.br/uploads/banners/';
@@ -158,9 +155,9 @@ export default function PartnerClinicSection({PartnerData, bannerPartners}: {Par
             <p className="font-(family-name:--font-figtree) font-normal text-[18px] w-[531px]">
               {isMultipleUnits ? (
                 <>
-                A {clinicName} – {unitName} é uma clínica localizada em {currentUnit.cidade}, credenciada ao Cartão Beneficiar, um cartão de benefícios em saúde que oferece descontos em consultas médicas, odontológicas e exames. 
+                A {clinicName.toLowerCase()} – {unitName.toLowerCase()} é uma clínica localizada em {currentUnit.cidade}, credenciada ao Cartão Beneficiar, um cartão de benefícios em saúde que oferece descontos em consultas médicas, odontológicas e exames. 
                 <br /><br />
-                Estamos em {currentUnit.cidade} – {currentUnit.estado}, bem pertinho de você. Aqui, você encontra atendimento em diversas especialidades, além de procedimentos odontológicos, exames laboratoriais e de imagem. Nossa equipe está pronta para te atender e tirar suas dúvidas.
+                Estamos em {currentUnit.cidade.toLowerCase()} – {currentUnit.estado.toLowerCase()}, bem pertinho de você. Aqui, você encontra atendimento em diversas especialidades, além de procedimentos odontológicos, exames laboratoriais e de imagem. Nossa equipe está pronta para te atender e tirar suas dúvidas.
                 </>
               ) : (
                 <>

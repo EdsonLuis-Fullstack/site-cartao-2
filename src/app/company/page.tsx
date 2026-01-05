@@ -24,8 +24,8 @@ const Page: NextPage = () => {
     <main className="relative">
       <CompanyBannerSection />
       <NavBar />
-      <CompanyHeroSection />
-      <CompanyFeaturesSection />
+      <CompanyHeroSection /> 
+      <CompanyFeaturesSection /> 
       <HealthcareServicesSection />
       <WhyChooseBeneficiarSection />
       <HowToStartSection />

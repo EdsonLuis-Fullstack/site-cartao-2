@@ -31,14 +31,14 @@ const services: ServiceCard[] = [
   {
     id: "1",
     title: "Consultas com especialistas",
-    description: "Clínico geral gratuito e especialistasa partir de R$ 25.",
+    description: "Clínico geral gratuito e especialistas a partir de R$ 25,00.",
     image: medical,
     bgColor: "green",
   },
   {
     id: "2",
     title: "Consultas Odontológicas",
-    description: "Descontos de até 50% emprocedimentos odontológicos.",
+    description: "Descontos de até 50% em procedimentos odontológicos.",
     image: dental,
     bgColor: "orange",
   },
@@ -51,14 +51,14 @@ const services: ServiceCard[] = [
   },
   {
     id: "4",
-    title: "Atendimento Médico Online 24h",
-    description: "Consultas online disponíveis a qualquer hora do dia",
+    title: "Assistência Funerária Familia",
+    description: "Cobertura nacional e sem burocracia, com apoio e tranquilidade nos momentos mais difíceis.",
     image: atendimento,
     bgColor: "orange",
   },
   {
     id: "5",
-    title: "Vacinas Para toda a família",
+    title: "Vacinas para toda a família",
     description: "Descontos exclusivos em vacinas, com mais acesso e cuidado para todos.",
     image: vacinas,
     bgColor: "green",
@@ -78,7 +78,7 @@ function ServiceCardComponent({ service }: ServiceCardComponentProps) {
   return (
     <div
       className={cn(
-        "w-[283px] h-[482px] rounded-2xl overflow-hidden relative shrink-0",
+        "w-[283px] h-[499px] rounded-2xl overflow-hidden relative shrink-0",
         bgColorClass
       )}
     >

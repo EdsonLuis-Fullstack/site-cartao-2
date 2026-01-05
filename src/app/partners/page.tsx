@@ -8,6 +8,7 @@ import PartnersBannerSection from "@/components/partners-banner-section";
 import { NavBar } from "@/components/shared/navbar";
 import { api } from "@/instances/api";
 import { redirect } from "next/navigation";
+import { cacheLife } from "next/cache";
 
 export async function generateMetadata() {
   return getMetaData({
@@ -19,6 +20,9 @@ export async function generateMetadata() {
 }
 
 const Page: NextPage = async () => {
+  "use cache"
+  cacheLife("hours")
+
   try {
     var [citiesData, partnersData, categoriesData] = await Promise.all([
       api.cities.findAllCache({}),
