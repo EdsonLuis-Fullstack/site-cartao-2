@@ -25,6 +25,7 @@ export async function handlePagination(
       });
       break;
   }
+  console.log("Pagination data:", { start, city, uf, tipo, data });
   return data;
 }
 

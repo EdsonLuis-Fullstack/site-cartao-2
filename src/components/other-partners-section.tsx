@@ -257,6 +257,7 @@ export default function OtherPartnersSection({
             uf,
             "cities",
           );
+          console.log("Fetched partners for city:", city, "Response:", response);
         } else {
           response = await handlePagination(
             start,
@@ -264,6 +265,8 @@ export default function OtherPartnersSection({
             null,
             "partners",
           );
+          console.log("Fetched partners for city:", city, "Response:", response);
+
         }
         return response || { data: [], recordsFiltered: 0, recordsTotal: 0, draw: 1 };
       } catch (error) {
