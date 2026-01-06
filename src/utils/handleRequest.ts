@@ -9,7 +9,8 @@ export async function handlePagination(
   uf: string | null,
   tipo: string
 ) {
-  noStore()
+  noStore(); // Desabilita cache para esta função
+  
   var data;
 
   switch (tipo) {
@@ -27,13 +28,19 @@ export async function handlePagination(
   return data;
 }
 
-export async function handleSubcategoryes(code: number) {
-  noStore()
+export async function handleSubcategoryes(
+  code: number,
+  city?: string | null,
+  uf?: string | null
+) {
+  noStore();
+  
   try {
     const data = await api.subcategories.findByCode({ codCategoria: code });
     return data;
   } catch (error) {
     console.error("Error fetching subcategories:", error);
+    return [];
   }
 }
 
@@ -44,6 +51,8 @@ export async function handlePartnersCategory(
   city?: string | null,
   uf?: string | null
 ) {
+  noStore();
+  
   try {
     const data = await api.partners.findByCategorySubCategory({
       city: city || null,
@@ -55,33 +64,6 @@ export async function handlePartnersCategory(
     return data;
   } catch (error) {
     console.error("Error fetching partners by category:", error);
-  }
-}
-
-export async function handleRequestsCity() {
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/cidades/list`,
-      {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          draw: 1,
-          start: 0,
-          length: 120,
-          sortBy: "cidade",
-          sortDirection: "ASC",
-          filterOnlyExist: "P",
-        }),
-        cache: "force-cache",
-        next: { revalidate: 3600 },
-      }
-    );
-    return await response.json()
-  } catch (error) {
-    console.error("Error fetching cities:", error);
+    return { data: [], recordsFiltered: 0, recordsTotal: 0, draw: 1 };
   }
 }
