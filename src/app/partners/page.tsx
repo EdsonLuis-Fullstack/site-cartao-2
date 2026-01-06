@@ -20,8 +20,7 @@ export async function generateMetadata() {
 }
 
 const Page: NextPage = async () => {
-  "use cache"
-  cacheLife("hours")
+
 
   try {
     var [citiesData, partnersData, categoriesData] = await Promise.all([

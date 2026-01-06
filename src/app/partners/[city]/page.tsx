@@ -77,8 +77,6 @@ const Page: NextPage<PartnerDynamicPage> = async ({
 }: {
   params: Promise<{ city: string }>;
 }) => {
-  // "use cache"
-  // cacheLife("hours")
   const { city } = await params;
   
   const parts = city.split("-");

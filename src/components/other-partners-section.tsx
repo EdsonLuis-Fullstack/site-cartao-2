@@ -228,14 +228,6 @@ export default function OtherPartnersSection({
     queryFn: async () => {
       const start = (currentPage - 1) * itemsPerPage;
 
-      console.log('Buscando parceiros com:', {
-        categoryId: appliedCategory.id,
-        subcategoryId: appliedSubcategory.cod,
-        city,
-        uf,
-        start
-      });
-
       if (currentPage === 1 && !appliedCategory.id && !appliedSubcategory.cod && initialData) {
         return initialData;
       }
@@ -329,12 +321,7 @@ export default function OtherPartnersSection({
   };
 
   const handleSearch = () => {
-    console.log('Aplicando filtros:', {
-      category: tempCategory,
-      subcategory: tempSubcategory,
-      city,
-      uf
-    });
+
     setAppliedCategory(tempCategory);
     setAppliedSubcategory(tempSubcategory);
     setCurrentPage(1);

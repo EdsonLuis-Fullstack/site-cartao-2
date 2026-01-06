@@ -1,6 +1,7 @@
 "use server";
 
 import { api } from "@/instances/api";
+import { unstable_noStore as noStore } from 'next/cache';
 
 export async function handlePagination(
   start: number,
@@ -8,6 +9,7 @@ export async function handlePagination(
   uf: string | null,
   tipo: string
 ) {
+  noStore()
   var data;
 
   switch (tipo) {
@@ -26,6 +28,7 @@ export async function handlePagination(
 }
 
 export async function handleSubcategoryes(code: number) {
+  noStore()
   try {
     const data = await api.subcategories.findByCode({ codCategoria: code });
     return data;

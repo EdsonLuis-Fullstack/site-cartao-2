@@ -15,22 +15,17 @@ export async function generateMetadata({
 }: {
   params: { name: string; city: string };
 }) {
-    "use cache"
-  cacheLife("hours")
-
   let { name, city } = await params;
 
   const parts = city.split("-");
   const lastPart = parts[parts.length - 1];
-  if(name.includes("#")){
-    name = name.split("#")[0]
+  if (name.includes("#")) {
+    name = name.split("#")[0];
   }
   const hasUfSuffix = lastPart.length === 2;
-  
-  const cityWithoutUf = hasUfSuffix 
-    ? parts.slice(0, -1).join("-") 
-    : city;
-  
+
+  const cityWithoutUf = hasUfSuffix ? parts.slice(0, -1).join("-") : city;
+
   const uf = hasUfSuffix ? lastPart : null;
   const partnerData = await api.partner.findbyNameAndCity({
     name: name.replaceAll("-", " "),
@@ -47,7 +42,7 @@ export async function generateMetadata({
           .toLowerCase()
       : "";
   };
-  if(!partnerData){
+  if (!partnerData) {
     return getMetaData({
       title: `Parceiro não encontrado | Beneficiar`,
       description: `Saiba telefone, WhatsApp e endereço do parceiro do Cartão Beneficiar. Consulte nossos parceiros credenciados nas áreas de saúde, odontologia, exames laboratoriais e de imagem com condições especiais para quem tem o cartão.`,
@@ -57,8 +52,21 @@ export async function generateMetadata({
   }
 
   return getMetaData({
-    title: `${partnerData.nome.split(" ").map((word) =>word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ")} em ${partnerData.cidade} | Telefone, WhatsApp e endereço`,
-    description: `Saiba telefone, WhatsApp e endereço de ${partnerData.nome.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ")} em ${partnerData.cidade}. Parceiro do Cartão Beneficiar, que atua nas áreas de ${partnerData.categoria_obj.nome.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ")} e oferece ${servicesResume()} com condições especiais para quem tem o cartão.`,
+    title: `${partnerData.nome
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(" ")} em ${partnerData.cidade} | Telefone, WhatsApp e endereço`,
+    description: `Saiba telefone, WhatsApp e endereço de ${partnerData.nome
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(" ")} em ${
+      partnerData.cidade
+    }. Parceiro do Cartão Beneficiar, que atua nas áreas de ${partnerData.categoria_obj.nome
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(
+        " "
+      )} e oferece ${servicesResume()} com condições especiais para quem tem o cartão.`,
     url: `/partners/${city}/${name}`,
     image: "",
   });
@@ -67,31 +75,26 @@ export async function generateMetadata({
 const Page: NextPage<PartnerDynamicPage> = async ({
   params,
 }: {
-  params: Promise<{ name: string, city: string }>;
+  params: Promise<{ name: string; city: string }>;
 }) => {
-  "use cache"
-  cacheLife("hours")
-
   let { name, city } = await params;
 
   const parts = city.split("-");
   const lastPart = parts[parts.length - 1];
-  if(name.includes("#")){
-    name = name.split("#")[0]
+  if (name.includes("#")) {
+    name = name.split("#")[0];
   }
-  
+
   const hasUfSuffix = lastPart.length === 2;
-  
-  const cityWithoutUf = hasUfSuffix 
-    ? parts.slice(0, -1).join("-") 
-    : city;
-  
+
+  const cityWithoutUf = hasUfSuffix ? parts.slice(0, -1).join("-") : city;
+
   const uf = hasUfSuffix ? lastPart : null;
   const partnerData: any | undefined = await api.partner.findbyNameAndCity({
     name: name.replaceAll("-", " "),
     city: cityWithoutUf.replaceAll("-", " "),
     uf: uf || null,
-  }) 
+  });
 
   return (
     <main className="relative">
