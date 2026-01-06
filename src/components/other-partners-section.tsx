@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/instances/api";
 import { Pagination } from 'antd';
-import { testando } from "@/services/testando";
 import { handlePagination, handleSubcategoryes, handlePartnersCategory } from "@/utils/handleRequest";
 
 interface Partner {

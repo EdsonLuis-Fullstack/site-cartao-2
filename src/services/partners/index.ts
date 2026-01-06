@@ -34,19 +34,20 @@ export class Partners {
   }) => {
     try {
       const cityFormatted = city.replace(/-/g, " ");
+
       const response = await axiosInstance.post("parceiros/list", {
-        draw: 1,
-        start: start || 0,
-        length: 9,
-        sortBy: "cidade",
-        sortDirection: "ASC",
-        nome: null,
-        status: null, //S para ativo, D para deletado, N para inativo
-        nomeDaCidade: `${cityFormatted}`,
-        nomeDoEstado: uf ? uf : null,
-        categoria: null, //Id da categoria
-        subcategoria: null, // id da subcategoria
-        clinica_parceira: false, // true, false, null
+        "draw": 1,
+        "start": start || 0,
+        "length": 50,
+        "sortBy": "cidade",
+        "sortDirection": "status",
+        "nome": null,
+        "status": "S", //S para ativo, D para deletado, N para inativo
+        "nomeDaCidade": `${cityFormatted}`,
+        "nomeDoEstado": uf ? uf : null,
+        "cod_categoria": null, //Id da categoria
+        "cod_subcategoria": null, // id da subcategoria
+        "clinica_parceira": false, // true, false, null
       });
 
       const responseFormatted = response.data;
@@ -79,7 +80,6 @@ export class Partners {
         subcategoria: null,
         clinica_parceira: true,
       });
-
       return response?.data?.data;
     } catch (error) {
       console.error("Error fetching cities:", error);

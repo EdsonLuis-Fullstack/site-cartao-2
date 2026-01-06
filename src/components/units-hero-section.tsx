@@ -1,6 +1,7 @@
-"use client"
+"use client";
 import Image from "next/image";
 import { ArrowUpRight, Clock, MapPin } from "lucide-react";
+import { useState, useEffect } from "react";
 import grandmother from "../../public/images/vo-e-neta.webp";
 import whatsAppIcon from "@/assets/whatsapp.svg";
 import Link from "next/link";
@@ -62,70 +63,105 @@ interface Unit {
 
 interface UnitsHeroSectionProps {
   unit: Unit;
+  banner: any;
 }
 
 const weekDaysMap: { [key: string]: string } = {
-  "Segunda": "Segunda-feira",
-  "Terça": "Terça-feira",
-  "Quarta": "Quarta-feira",
-  "Quinta": "Quinta-feira",
-  "Sexta": "Sexta-feira",
-  "Sábado": "Sábado",
-  "Domingo": "Domingo",
+  Segunda: "Segunda-feira",
+  Terça: "Terça-feira",
+  Quarta: "Quarta-feira",
+  Quinta: "Quinta-feira",
+  Sexta: "Sexta-feira",
+  Sábado: "Sábado",
+  Domingo: "Domingo",
 };
 
 const weekDaysOrder: { [key: string]: number } = {
-  "Segunda": 1,
-  "Terça": 2,
-  "Quarta": 3,
-  "Quinta": 4,
-  "Sexta": 5,
-  "Sábado": 6,
-  "Domingo": 7,
+  Segunda: 1,
+  Terça: 2,
+  Quarta: 3,
+  Quinta: 4,
+  Sexta: 5,
+  Sábado: 6,
+  Domingo: 7,
 };
 
-export default function UnitsHeroSection({ unit }: UnitsHeroSectionProps) {
-  // if(!unit || unit.length === 0) {
-  //   return window.location.href = '/404'
-  // }
+export default function UnitsHeroSection({
+  unit,
+  banner,
+}: UnitsHeroSectionProps) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    // Verifica no carregamento inicial
+    checkMobile();
+
+    // Adiciona listener para mudanças de tamanho
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  if (!unit || unit.length === 0) {
+    return (window.location.href = "/404");
+  }
+
   const formatSchedules = (schedules: Schedule[]) => {
     const sortedSchedules = [...schedules].sort(
-      (a, b) => (weekDaysOrder[a.dia_semana] || 0) - (weekDaysOrder[b.dia_semana] || 0)
+      (a, b) =>
+        (weekDaysOrder[a.dia_semana] || 0) - (weekDaysOrder[b.dia_semana] || 0)
     );
 
     return sortedSchedules.map((schedule) => ({
       day: weekDaysMap[schedule.dia_semana] || schedule.dia_semana,
-      hours: `${schedule.horario_inicio.slice(0, 5)} às ${schedule.horario_fim.slice(0, 5)}`,
+      hours: `${schedule.horario_inicio.slice(
+        0,
+        5
+      )} às ${schedule.horario_fim.slice(0, 5)}`,
     }));
   };
 
-  const formattedSchedules = unit.horarios_atendimentos_unidades 
+  const formattedSchedules = unit.horarios_atendimentos_unidades
     ? formatSchedules(unit.horarios_atendimentos_unidades)
     : [];
 
   // Constrói o endereço completo para o Google Maps
   const buildMapAddress = () => {
     const parts = [];
-    
+
     if (unit.endereco) parts.push(unit.endereco);
     if (unit.bairro) parts.push(unit.bairro);
     if (unit.cidade?.cidade) parts.push(unit.cidade.cidade);
     if (unit.cidade?.uf) parts.push(unit.cidade.uf);
     if (unit.cep) parts.push(unit.cep);
-    
-    return parts.join(', ');
+
+    return parts.join(", ");
   };
 
   const fullAddress = buildMapAddress();
   const encodedAddress = encodeURIComponent(fullAddress);
-  
+
   // URL do iframe usando o método de embed do Google Maps (não requer API key)
-  const mapsUrl = fullAddress 
+  const mapsUrl = fullAddress
     ? `https://maps.google.com/maps?q=${encodedAddress}&t=&z=15&ie=UTF8&iwloc=&output=embed`
     : "";
 
+  // Seleciona a imagem baseado no dispositivo
+  const bannerImagePath = isMobile && banner[0]?.imagemMobile 
+    ? banner[0].imagemMobile 
+    : banner[0]?.image;
+  
+  const bannerImage = `${process.env.NEXT_PUBLIC_IMAGE_BASE_BANNER_URL}${bannerImagePath}`;
+
   return (
-    <section id="city-section" className="bg-[#fdfbf8] relative w-full min-h-screen font-(family-name:--font-figtree)">
+    <section
+      id="city-section"
+      className="bg-[#fdfbf8] relative w-full min-h-screen font-(family-name:--font-figtree)"
+    >
       <div className="relative w-full pt-[112px] pb-[200px]">
         <div className="flex flex-col max-w-7xl mx-auto">
           <div>
@@ -136,7 +172,12 @@ export default function UnitsHeroSection({ unit }: UnitsHeroSectionProps) {
                 </h2>
 
                 <p className="font-normal text-[18px] leading-normal text-black w-[449px]">
-                No cartão beneficiar em {unit.cidade.cidade.toLowerCase()}, você e sua família podem cuidar da saúde com consultas acessíveis, exames com desconto e uma rede de parceiros selecionados. Nosso foco é oferecer atendimento humanizado, sem burocracia, para quem vive em {unit.cidade.cidade} e região.
+                  No cartão beneficiar em {unit.cidade.cidade.toLowerCase()},
+                  você e sua família podem cuidar da saúde com consultas
+                  acessíveis, exames com desconto e uma rede de parceiros
+                  selecionados. Nosso foco é oferecer atendimento humanizado,
+                  sem burocracia, para quem vive em {unit.cidade.cidade} e
+                  região.
                 </p>
 
                 <Link href={unit.link_whats} target="_blank">
@@ -199,16 +240,14 @@ export default function UnitsHeroSection({ unit }: UnitsHeroSectionProps) {
                 </p>
 
                 {mapsUrl && (
-                 
                   <div className="w-full  h-[510px] rounded-xl overflow-hidden">
-              <iframe
-                    src={mapsUrl}
-
-       allowFullScreen
-                className="w-full h-full border-0"
-                loading="lazy"
-              ></iframe>
-            </div>
+                    <iframe
+                      src={mapsUrl}
+                      allowFullScreen
+                      className="w-full h-full border-0"
+                      loading="lazy"
+                    ></iframe>
+                  </div>
                 )}
               </div>
             </div>
@@ -240,10 +279,10 @@ export default function UnitsHeroSection({ unit }: UnitsHeroSectionProps) {
                 </div>
                 <div className="absolute right-8 -top-[133px] z-50">
                   <Image
-                    src={grandmother}
+                    src={bannerImage}
                     width={710}
                     height={449}
-                    alt="Vó e neta sorrindo"
+                    alt={`${banner[0].description}`}
                     className="object-contain w-[710px] h-[449px]"
                   />
                 </div>

@@ -40,7 +40,7 @@ export default function Footer() {
             >
               <Link
           href="/"
-          className="font-semibold leading-normal text-[14px] text-white"
+          className="font-semibold leading-normal w-[250px] text-white"
           data-node-id="I295:2280;295:2269"
         >
               <Image

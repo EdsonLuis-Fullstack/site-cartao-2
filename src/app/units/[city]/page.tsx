@@ -15,12 +15,13 @@ export async function generateMetadata({
   params: Promise<{ city: string }>;
 }) {
   let { city } = await params;
-  city = city.replace("-", " ");
+  city = city.replace(/-/g, " ");
 
   return getMetaData({
     title: `Cartão Beneficiar em ${city} – Endereço, Horários e Contato | Beneficiar`,
     description: `Unidade do Cartão Beneficiar em ${city}. Consultas acessíveis, exames com desconto e rede de parceiros com atendimento humanizado. Veja endereço, horários de atendimento e como falar com a equipe.`,
-    url: `/units/${city.replace(" ", "-")}`,
+    image: "",
+    url: `/units/${city}`,
   });
 }
 
@@ -29,20 +30,21 @@ const Page: NextPage<PartnerDynamicPage> = async ({
 }: {
   params: Promise<{ city: string }>;
 }) => {
-    "use cache"
-     cacheLife("hours")
+  "use cache";
+  cacheLife("hours");
   let { city } = await params;
-  city = city.replace("-", " ");
-  const [citiesData, partnerData] = await Promise.all([
+  city = city.replace(/-/g, " ");
+  
+  const [citiesData, partnerData, bannerUnit] = await Promise.all([
     api.cities.findAllPartnersCache({}),
     api.unit.findByCity({ city: city }),
+    api.banners.findAllUnit(),
   ]);
-
   return (
     <main className="relative">
       <UnitsBannerSection cities={citiesData} />
       <NavBar />
-      <UnitsHeroSection unit={partnerData} />
+      <UnitsHeroSection banner={bannerUnit} unit={partnerData} />
       <Footer />
       <CopyrightBar />
     </main>

@@ -8,8 +8,8 @@ export class Categories {
                 draw: 1,
                 start: 0,
                 length: 150,
-                sortBy: null,
-                sortDirection: "ASC",
+                sortBy: "status",
+                sortDirection: "status",
                 nome: "",
                 status: "S"
             });

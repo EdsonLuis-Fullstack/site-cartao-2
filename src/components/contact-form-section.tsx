@@ -180,7 +180,7 @@ export default function ContactFormSection({cities}: {cities?: City[]}) {
   };
 
   return (
-    <section className="bg-white relative w-full min-h-screen overflow-hidden flex items-center justify-center py-10">
+    <section className="bg-[#FFFFFF] relative w-full min-h-screen overflow-hidden flex items-center justify-center py-10">
       <style jsx global>{`
         @keyframes fadeIn {
           from {

@@ -37,7 +37,8 @@ export default function PartnerClinicSection({PartnerData, bannerPartners}: {Par
   const getBannerUrl = () => {
     
     const banner = bannerPartners[0];
-    const baseUrl = process.env.NEXT_PUBLIC_IMAGE_BASE_BANNER_URL || 'https://api.cartaobeneficiar.com.br/uploads/banners/';
+    // const baseUrl = process.env.NEXT_PUBLIC_IMAGE_BASE_BANNER_URL || 'https://api.cartaobeneficiar.com.br/uploads/banners/';
+    const baseUrl = process.env.NEXT_PUBLIC_IMAGE_BASE_BANNER_URL_PARTNERS || 'https://api.cartaobeneficiar.com.br/uploads/';
     
     if (isMobile && banner.imagemMobile) {
       return `${baseUrl}${banner.imagemMobile}`;

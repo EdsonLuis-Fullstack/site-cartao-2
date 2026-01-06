@@ -8,6 +8,9 @@ export const getMetaData = ({
     url,
     type = "website",
 }: GetMetaDataProps): Metadata => {
+    // ✅ Use string instead of URL object
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+    
     const metaDataObject: Metadata = {
         title,
         description,
@@ -16,12 +19,12 @@ export const getMetaData = ({
             images: [image],
             title,
             description,
-            url: image,
+            url: `${baseUrl}${url}`, // Fixed: was using `image` instead of `url`
         },
         alternates: {
-            canonical: url,
+            canonical: `${baseUrl}${url}`,
         },
-        metadataBase: new URL("http://localhost:3000"), // base URL env
+        metadataBase: baseUrl, // ✅ Changed from new URL() to string
         twitter: {
             title,
             description,

@@ -9,7 +9,7 @@ export default function ContactBannerSection() {
     >
       {/* Arte lateral */}
       <div
-        className="absolute h-full w-[818px] right-90 top-40"
+        className="absolute h-full w-[818px] right-90 top-49"
         data-name="Capa Home 4"
       >
         <Image

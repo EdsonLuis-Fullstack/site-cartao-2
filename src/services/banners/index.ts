@@ -1,27 +1,44 @@
 import { axiosInstance } from "@/lib/axios";
 
 type Banner = {
-    id: number;
-    image: string;
-    imagemMobile: string;
+  id: number;
+  image: string;
+  imagemMobile: string;
 };
 
-const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
-
 export class Banners {
-    private static cache: { data: Banner[]; expiresAt: number } | null = null;
+  findAll = async () => {
+    try {
+      const response = await axiosInstance.post("banner/list", {
+        draw: 1,
+        start: 0,
+        length: 10,
+        sortBy: "status",
+        sortDirection: "ASC",
+        nome: "",
+        status: "S",
+      });
 
-    findAll = async (): Promise<Banner[]> => {
-        // return cached value if not expired
-        if (Banners.cache && Date.now() < Banners.cache.expiresAt) {
-            return Banners.cache.data;
-        }
+      const responseFormatted: Banner[] = response.data.data.map(
+        (c: { cod: number; imagem: string; imagem_mobile: string }) => ({
+          id: c.cod,
+          image: c.imagem,
+          imagemMobile: c.imagem_mobile,
+        })
+      );
 
+      return responseFormatted;
+    } catch (error) {
+      console.error("Error fetching banners:", error);
+    }
+  };
+      findAllUnit = async () => {
+    
         try {
-            const response = await axiosInstance.post("banner/list", {
+            const response = await axiosInstance.post("/banner-unidade/list", {
                 draw: 1,
                 start: 0,
-                length: 10,
+                length: 50,
                 sortBy: "status",
                 sortDirection: "ASC",
                 nome: "",
@@ -30,30 +47,22 @@ export class Banners {
 
             const responseFormatted: Banner[] = response.data.data.map((c: {
                 cod: number;
-                imagem: string;
-                imagem_mobile: string;
+                image_path: string;
+                image_path_mobile: string;
+                descricao: string;
             }) => ({
                 id: c.cod,
-                image: c.imagem,
-                imagemMobile: c.imagem_mobile,
+                image: c.image_path,
+                imagemMobile: c.image_path_mobile,
+                description: c.descricao,
             }));
 
-            Banners.cache = {
-                data: responseFormatted,
-                expiresAt: Date.now() + CACHE_TTL_MS,
-            };
+
 
             return responseFormatted;
         } catch (error) {
             console.error("Error fetching banners:", error);
-            // if fetch fails, return cached data if available (even if expired) as a fallback
-            if (Banners.cache) return Banners.cache.data;
-            return [];
+
         }
     };
-
-    // optional helper to manually clear cache
-    static clearCache() {
-        Banners.cache = null;
-    }
 }

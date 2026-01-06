@@ -18,20 +18,28 @@ import exams from "../../public/images/exames-laboratoriais.webp";
 import atendimento from "../../public/images/atendimento.png";
 import vacinas from "../../public/images/vacinasfamilia.jpg";
 import Link from "next/link";
+import { ReactNode } from "react";
 
 interface ServiceCard {
   id: string;
   title: string;
-  description: string;
-  image: StaticImageData | string;
+  description: ReactNode;
+  image: any;
   bgColor: "green" | "orange";
 }
+
 
 const services: ServiceCard[] = [
   {
     id: "1",
     title: "Consultas com especialistas",
-    description: "Clínico geral gratuito e especialistas a partir de R$ 25,00.",
+    description: (
+      <>
+        Clínico geral gratuito e especialistas
+        <br />
+        a partir de R$ 25,00.
+      </>
+    ),
     image: medical,
     bgColor: "green",
   },
@@ -51,19 +59,22 @@ const services: ServiceCard[] = [
   },
   {
     id: "4",
-    title: "Assistência Funerária Familia",
-    description: "Cobertura nacional e sem burocracia, com apoio e tranquilidade nos momentos mais difíceis.",
+    title: "Assistência Funerária Familiar",
+    description:
+      "Cobertura nacional e sem burocracia, com apoio e tranquilidade nos momentos mais difíceis.",
     image: atendimento,
     bgColor: "orange",
   },
   {
     id: "5",
     title: "Vacinas para toda a família",
-    description: "Descontos exclusivos em vacinas, com mais acesso e cuidado para todos.",
+    description:
+      "Descontos exclusivos em vacinas, com mais acesso e cuidado para todos.",
     image: vacinas,
     bgColor: "green",
   },
 ];
+
 
 interface ServiceCardComponentProps {
   service: ServiceCard;
@@ -196,7 +207,7 @@ export default function ServicesCarouselSection({
             ))}
             {!isMobile && (
               <CarouselItem className="pl-[35px] basis-[35px] shrink-0">
-                <div className="w-[35px]" />
+                <div className="w-[3px]" />
               </CarouselItem>
             )}
           </CarouselContent>

@@ -77,8 +77,8 @@ const Page: NextPage<PartnerDynamicPage> = async ({
 }: {
   params: Promise<{ city: string }>;
 }) => {
-  "use cache"
-  cacheLife("hours")
+  // "use cache"
+  // cacheLife("hours")
   const { city } = await params;
   
   const parts = city.split("-");
@@ -95,13 +95,11 @@ const Page: NextPage<PartnerDynamicPage> = async ({
 
   const [citiesData, partnersData, categoriesData, unitPartners, bannerPartners] = await Promise.all([
     api.cities.findAllCache({}),
-    api.partners.findByCity({ city: cityWithoutUf, uf: uf }),
+    api.partners.findByCity({ city: cityWithoutUf, uf: uf || null }),
     api.categories.findAll({}),
     api.partners.findByCityPartner({ city: cityWithoutUf, uf: uf }),
     api.banners.findAll(),
   ]);
-
-
 
   return (
     <main className="relative">
